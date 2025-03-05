@@ -420,7 +420,7 @@ Name | Type | Description  | Notes
 
 ## GetBucketInfo
 
-> BucketInfo GetBucketInfo(ctx).Id(id).Alias(alias).Execute()
+> BucketInfo GetBucketInfo(ctx).Id(id).GlobalAlias(globalAlias).Execute()
 
 Get a bucket
 
@@ -440,11 +440,11 @@ import (
 
 func main() {
     id := "b4018dc61b27ccb5c64ec1b24f53454bbbd180697c758c4d47a22a8921864a87" // string | The exact bucket identifier, a 32 bytes hexadecimal string.  Incompatible with `alias`.  (optional)
-    alias := "my_documents" // string | The exact global alias of one of the existing buckets.  Incompatible with `id`.  (optional)
+    globalAlias := "my_documents" // string | The exact global alias of one of the existing buckets.  Incompatible with `id`.  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BucketApi.GetBucketInfo(context.Background()).Id(id).Alias(alias).Execute()
+    resp, r, err := apiClient.BucketApi.GetBucketInfo(context.Background()).Id(id).GlobalAlias(globalAlias).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `BucketApi.GetBucketInfo``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -466,7 +466,7 @@ Other parameters are passed through a pointer to a apiGetBucketInfoRequest struc
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **string** | The exact bucket identifier, a 32 bytes hexadecimal string.  Incompatible with &#x60;alias&#x60;.  | 
- **alias** | **string** | The exact global alias of one of the existing buckets.  Incompatible with &#x60;id&#x60;.  | 
+ **globalAlias** | **string** | The exact global alias of one of the existing buckets.  Incompatible with &#x60;id&#x60;.  | 
 
 ### Return type
 
