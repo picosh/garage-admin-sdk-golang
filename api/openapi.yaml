@@ -503,7 +503,7 @@ paths:
       - Bucket
     get:
       description: |
-        Given a bucket identifier (`id`) or a global alias (`alias`), get its information.
+        Given a bucket identifier (`id`) or a global alias (`globalAlias`), get its information.
         It includes its aliases, its web configuration, keys that have some permissions
         on it, some statistics (number of objects, size), number of dangling multipart uploads,
         and its quotas (if any).
@@ -528,7 +528,7 @@ paths:
         example: my_documents
         explode: true
         in: query
-        name: alias
+        name: globalAlias
         required: false
         schema:
           type: string
@@ -1269,7 +1269,6 @@ components:
           hostname: neptune
         garageFeatures:
         - k2v
-        - sled
         - lmdb
         - sqlite
         - consul-discovery
@@ -1288,7 +1287,6 @@ components:
         garageFeatures:
           example:
           - k2v
-          - sled
           - lmdb
           - sqlite
           - consul-discovery

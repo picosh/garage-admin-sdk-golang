@@ -731,7 +731,7 @@ type ApiGetBucketInfoRequest struct {
 	ctx context.Context
 	ApiService *BucketApiService
 	id *string
-	alias *string
+	globalAlias *string
 }
 
 // The exact bucket identifier, a 32 bytes hexadecimal string.  Incompatible with &#x60;alias&#x60;. 
@@ -741,8 +741,8 @@ func (r ApiGetBucketInfoRequest) Id(id string) ApiGetBucketInfoRequest {
 }
 
 // The exact global alias of one of the existing buckets.  Incompatible with &#x60;id&#x60;. 
-func (r ApiGetBucketInfoRequest) Alias(alias string) ApiGetBucketInfoRequest {
-	r.alias = &alias
+func (r ApiGetBucketInfoRequest) GlobalAlias(globalAlias string) ApiGetBucketInfoRequest {
+	r.globalAlias = &globalAlias
 	return r
 }
 
@@ -753,7 +753,7 @@ func (r ApiGetBucketInfoRequest) Execute() (*BucketInfo, *http.Response, error) 
 /*
 GetBucketInfo Get a bucket
 
-Given a bucket identifier (`id`) or a global alias (`alias`), get its information.
+Given a bucket identifier (`id`) or a global alias (`globalAlias`), get its information.
 It includes its aliases, its web configuration, keys that have some permissions
 on it, some statistics (number of objects, size), number of dangling multipart uploads,
 and its quotas (if any).
@@ -793,8 +793,8 @@ func (a *BucketApiService) GetBucketInfoExecute(r ApiGetBucketInfoRequest) (*Buc
 	if r.id != nil {
 		localVarQueryParams.Add("id", parameterToString(*r.id, ""))
 	}
-	if r.alias != nil {
-		localVarQueryParams.Add("alias", parameterToString(*r.alias, ""))
+	if r.globalAlias != nil {
+		localVarQueryParams.Add("globalAlias", parameterToString(*r.globalAlias, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
