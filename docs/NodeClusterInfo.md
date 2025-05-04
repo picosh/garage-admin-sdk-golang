@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Id** | **string** |  | 
 **Zone** | **string** |  | 
 **Capacity** | Pointer to **NullableInt64** |  | [optional] 
 **Tags** | **[]string** | User defined tags, put whatever makes sense for you, these tags are not interpreted by Garage  | 
@@ -12,7 +13,7 @@ Name | Type | Description | Notes
 
 ### NewNodeClusterInfo
 
-`func NewNodeClusterInfo(zone string, tags []string, ) *NodeClusterInfo`
+`func NewNodeClusterInfo(id string, zone string, tags []string, ) *NodeClusterInfo`
 
 NewNodeClusterInfo instantiates a new NodeClusterInfo object
 This constructor will assign default values to properties that have it defined,
@@ -26,6 +27,26 @@ will change when the set of required properties is changed
 NewNodeClusterInfoWithDefaults instantiates a new NodeClusterInfo object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetId
+
+`func (o *NodeClusterInfo) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *NodeClusterInfo) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *NodeClusterInfo) SetId(v string)`
+
+SetId sets Id field to given value.
+
 
 ### GetZone
 

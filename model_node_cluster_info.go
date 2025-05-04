@@ -21,6 +21,7 @@ var _ MappedNullable = &NodeClusterInfo{}
 
 // NodeClusterInfo struct for NodeClusterInfo
 type NodeClusterInfo struct {
+	Id string `json:"id"`
 	Zone string `json:"zone"`
 	Capacity NullableInt64 `json:"capacity,omitempty"`
 	// User defined tags, put whatever makes sense for you, these tags are not interpreted by Garage 
@@ -33,8 +34,9 @@ type _NodeClusterInfo NodeClusterInfo
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewNodeClusterInfo(zone string, tags []string) *NodeClusterInfo {
+func NewNodeClusterInfo(id string, zone string, tags []string) *NodeClusterInfo {
 	this := NodeClusterInfo{}
+	this.Id = id
 	this.Zone = zone
 	this.Tags = tags
 	return &this
@@ -46,6 +48,30 @@ func NewNodeClusterInfo(zone string, tags []string) *NodeClusterInfo {
 func NewNodeClusterInfoWithDefaults() *NodeClusterInfo {
 	this := NodeClusterInfo{}
 	return &this
+}
+
+// GetId returns the Id field value
+func (o *NodeClusterInfo) GetId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *NodeClusterInfo) GetIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *NodeClusterInfo) SetId(v string) {
+	o.Id = v
 }
 
 // GetZone returns the Zone field value
@@ -148,6 +174,7 @@ func (o NodeClusterInfo) MarshalJSON() ([]byte, error) {
 
 func (o NodeClusterInfo) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
 	toSerialize["zone"] = o.Zone
 	if o.Capacity.IsSet() {
 		toSerialize["capacity"] = o.Capacity.Get()
@@ -161,6 +188,7 @@ func (o *NodeClusterInfo) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"id",
 		"zone",
 		"tags",
 	}

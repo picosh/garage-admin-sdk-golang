@@ -899,6 +899,9 @@ components:
       type: object
     NodeClusterInfo:
       properties:
+        id:
+          example: 6a8e08af2aab1083ebab9b22165ea8b5b9d333b60a39ecd504e85cc1f432c36f
+          type: string
         zone:
           example: dc1
           type: string
