@@ -1,12 +1,12 @@
-# \NodesApi
+# \NodesAPI
 
 All URIs are relative to *http://localhost:3903/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AddNode**](NodesApi.md#AddNode) | **Post** /connect | Connect a new node
-[**GetHealth**](NodesApi.md#GetHealth) | **Get** /health | Cluster health report
-[**GetNodes**](NodesApi.md#GetNodes) | **Get** /status | Describe cluster
+[**AddNode**](NodesAPI.md#AddNode) | **Post** /connect | Connect a new node
+[**GetHealth**](NodesAPI.md#GetHealth) | **Get** /health | Cluster health report
+[**GetNodes**](NodesAPI.md#GetNodes) | **Get** /status | Describe cluster
 
 
 
@@ -24,24 +24,24 @@ Connect a new node
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "git.deuxfleurs.fr/garage-sdk/garage-admin-sdk-golang"
 )
 
 func main() {
-    requestBody := []string{"Property_example"} // []string | 
+	requestBody := []string{"Property_example"} // []string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NodesApi.AddNode(context.Background()).RequestBody(requestBody).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NodesApi.AddNode``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AddNode`: []AddNode200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `NodesApi.AddNode`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NodesAPI.AddNode(context.Background()).RequestBody(requestBody).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NodesAPI.AddNode``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AddNode`: []AddNode200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `NodesAPI.AddNode`: %v\n", resp)
 }
 ```
 
@@ -90,23 +90,23 @@ Cluster health report
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "git.deuxfleurs.fr/garage-sdk/garage-admin-sdk-golang"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NodesApi.GetHealth(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NodesApi.GetHealth``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetHealth`: GetHealth200Response
-    fmt.Fprintf(os.Stdout, "Response from `NodesApi.GetHealth`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NodesAPI.GetHealth(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NodesAPI.GetHealth``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetHealth`: GetHealth200Response
+	fmt.Fprintf(os.Stdout, "Response from `NodesAPI.GetHealth`: %v\n", resp)
 }
 ```
 
@@ -151,23 +151,23 @@ Describe cluster
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "git.deuxfleurs.fr/garage-sdk/garage-admin-sdk-golang"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NodesApi.GetNodes(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NodesApi.GetNodes``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetNodes`: GetNodes200Response
-    fmt.Fprintf(os.Stdout, "Response from `NodesApi.GetNodes`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NodesAPI.GetNodes(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NodesAPI.GetNodes``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetNodes`: GetNodes200Response
+	fmt.Fprintf(os.Stdout, "Response from `NodesAPI.GetNodes`: %v\n", resp)
 }
 ```
 

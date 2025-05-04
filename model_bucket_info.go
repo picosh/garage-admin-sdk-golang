@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the BucketInfo type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BucketInfo{}
+
 // BucketInfo struct for BucketInfo
 type BucketInfo struct {
 	Id *string `json:"id,omitempty"`
@@ -46,7 +49,7 @@ func NewBucketInfoWithDefaults() *BucketInfo {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *BucketInfo) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -56,7 +59,7 @@ func (o *BucketInfo) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BucketInfo) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -64,7 +67,7 @@ func (o *BucketInfo) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *BucketInfo) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -78,7 +81,7 @@ func (o *BucketInfo) SetId(v string) {
 
 // GetGlobalAliases returns the GlobalAliases field value if set, zero value otherwise.
 func (o *BucketInfo) GetGlobalAliases() []string {
-	if o == nil || o.GlobalAliases == nil {
+	if o == nil || IsNil(o.GlobalAliases) {
 		var ret []string
 		return ret
 	}
@@ -88,7 +91,7 @@ func (o *BucketInfo) GetGlobalAliases() []string {
 // GetGlobalAliasesOk returns a tuple with the GlobalAliases field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BucketInfo) GetGlobalAliasesOk() ([]string, bool) {
-	if o == nil || o.GlobalAliases == nil {
+	if o == nil || IsNil(o.GlobalAliases) {
 		return nil, false
 	}
 	return o.GlobalAliases, true
@@ -96,7 +99,7 @@ func (o *BucketInfo) GetGlobalAliasesOk() ([]string, bool) {
 
 // HasGlobalAliases returns a boolean if a field has been set.
 func (o *BucketInfo) HasGlobalAliases() bool {
-	if o != nil && o.GlobalAliases != nil {
+	if o != nil && !IsNil(o.GlobalAliases) {
 		return true
 	}
 
@@ -110,7 +113,7 @@ func (o *BucketInfo) SetGlobalAliases(v []string) {
 
 // GetWebsiteAccess returns the WebsiteAccess field value if set, zero value otherwise.
 func (o *BucketInfo) GetWebsiteAccess() bool {
-	if o == nil || o.WebsiteAccess == nil {
+	if o == nil || IsNil(o.WebsiteAccess) {
 		var ret bool
 		return ret
 	}
@@ -120,7 +123,7 @@ func (o *BucketInfo) GetWebsiteAccess() bool {
 // GetWebsiteAccessOk returns a tuple with the WebsiteAccess field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BucketInfo) GetWebsiteAccessOk() (*bool, bool) {
-	if o == nil || o.WebsiteAccess == nil {
+	if o == nil || IsNil(o.WebsiteAccess) {
 		return nil, false
 	}
 	return o.WebsiteAccess, true
@@ -128,7 +131,7 @@ func (o *BucketInfo) GetWebsiteAccessOk() (*bool, bool) {
 
 // HasWebsiteAccess returns a boolean if a field has been set.
 func (o *BucketInfo) HasWebsiteAccess() bool {
-	if o != nil && o.WebsiteAccess != nil {
+	if o != nil && !IsNil(o.WebsiteAccess) {
 		return true
 	}
 
@@ -142,7 +145,7 @@ func (o *BucketInfo) SetWebsiteAccess(v bool) {
 
 // GetWebsiteConfig returns the WebsiteConfig field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *BucketInfo) GetWebsiteConfig() BucketInfoWebsiteConfig {
-	if o == nil || o.WebsiteConfig.Get() == nil {
+	if o == nil || IsNil(o.WebsiteConfig.Get()) {
 		var ret BucketInfoWebsiteConfig
 		return ret
 	}
@@ -184,7 +187,7 @@ func (o *BucketInfo) UnsetWebsiteConfig() {
 
 // GetKeys returns the Keys field value if set, zero value otherwise.
 func (o *BucketInfo) GetKeys() []BucketKeyInfo {
-	if o == nil || o.Keys == nil {
+	if o == nil || IsNil(o.Keys) {
 		var ret []BucketKeyInfo
 		return ret
 	}
@@ -194,7 +197,7 @@ func (o *BucketInfo) GetKeys() []BucketKeyInfo {
 // GetKeysOk returns a tuple with the Keys field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BucketInfo) GetKeysOk() ([]BucketKeyInfo, bool) {
-	if o == nil || o.Keys == nil {
+	if o == nil || IsNil(o.Keys) {
 		return nil, false
 	}
 	return o.Keys, true
@@ -202,7 +205,7 @@ func (o *BucketInfo) GetKeysOk() ([]BucketKeyInfo, bool) {
 
 // HasKeys returns a boolean if a field has been set.
 func (o *BucketInfo) HasKeys() bool {
-	if o != nil && o.Keys != nil {
+	if o != nil && !IsNil(o.Keys) {
 		return true
 	}
 
@@ -216,7 +219,7 @@ func (o *BucketInfo) SetKeys(v []BucketKeyInfo) {
 
 // GetObjects returns the Objects field value if set, zero value otherwise.
 func (o *BucketInfo) GetObjects() int64 {
-	if o == nil || o.Objects == nil {
+	if o == nil || IsNil(o.Objects) {
 		var ret int64
 		return ret
 	}
@@ -226,7 +229,7 @@ func (o *BucketInfo) GetObjects() int64 {
 // GetObjectsOk returns a tuple with the Objects field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BucketInfo) GetObjectsOk() (*int64, bool) {
-	if o == nil || o.Objects == nil {
+	if o == nil || IsNil(o.Objects) {
 		return nil, false
 	}
 	return o.Objects, true
@@ -234,7 +237,7 @@ func (o *BucketInfo) GetObjectsOk() (*int64, bool) {
 
 // HasObjects returns a boolean if a field has been set.
 func (o *BucketInfo) HasObjects() bool {
-	if o != nil && o.Objects != nil {
+	if o != nil && !IsNil(o.Objects) {
 		return true
 	}
 
@@ -248,7 +251,7 @@ func (o *BucketInfo) SetObjects(v int64) {
 
 // GetBytes returns the Bytes field value if set, zero value otherwise.
 func (o *BucketInfo) GetBytes() int64 {
-	if o == nil || o.Bytes == nil {
+	if o == nil || IsNil(o.Bytes) {
 		var ret int64
 		return ret
 	}
@@ -258,7 +261,7 @@ func (o *BucketInfo) GetBytes() int64 {
 // GetBytesOk returns a tuple with the Bytes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BucketInfo) GetBytesOk() (*int64, bool) {
-	if o == nil || o.Bytes == nil {
+	if o == nil || IsNil(o.Bytes) {
 		return nil, false
 	}
 	return o.Bytes, true
@@ -266,7 +269,7 @@ func (o *BucketInfo) GetBytesOk() (*int64, bool) {
 
 // HasBytes returns a boolean if a field has been set.
 func (o *BucketInfo) HasBytes() bool {
-	if o != nil && o.Bytes != nil {
+	if o != nil && !IsNil(o.Bytes) {
 		return true
 	}
 
@@ -280,7 +283,7 @@ func (o *BucketInfo) SetBytes(v int64) {
 
 // GetUnfinishedUploads returns the UnfinishedUploads field value if set, zero value otherwise.
 func (o *BucketInfo) GetUnfinishedUploads() int32 {
-	if o == nil || o.UnfinishedUploads == nil {
+	if o == nil || IsNil(o.UnfinishedUploads) {
 		var ret int32
 		return ret
 	}
@@ -290,7 +293,7 @@ func (o *BucketInfo) GetUnfinishedUploads() int32 {
 // GetUnfinishedUploadsOk returns a tuple with the UnfinishedUploads field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BucketInfo) GetUnfinishedUploadsOk() (*int32, bool) {
-	if o == nil || o.UnfinishedUploads == nil {
+	if o == nil || IsNil(o.UnfinishedUploads) {
 		return nil, false
 	}
 	return o.UnfinishedUploads, true
@@ -298,7 +301,7 @@ func (o *BucketInfo) GetUnfinishedUploadsOk() (*int32, bool) {
 
 // HasUnfinishedUploads returns a boolean if a field has been set.
 func (o *BucketInfo) HasUnfinishedUploads() bool {
-	if o != nil && o.UnfinishedUploads != nil {
+	if o != nil && !IsNil(o.UnfinishedUploads) {
 		return true
 	}
 
@@ -312,7 +315,7 @@ func (o *BucketInfo) SetUnfinishedUploads(v int32) {
 
 // GetQuotas returns the Quotas field value if set, zero value otherwise.
 func (o *BucketInfo) GetQuotas() BucketInfoQuotas {
-	if o == nil || o.Quotas == nil {
+	if o == nil || IsNil(o.Quotas) {
 		var ret BucketInfoQuotas
 		return ret
 	}
@@ -322,7 +325,7 @@ func (o *BucketInfo) GetQuotas() BucketInfoQuotas {
 // GetQuotasOk returns a tuple with the Quotas field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BucketInfo) GetQuotasOk() (*BucketInfoQuotas, bool) {
-	if o == nil || o.Quotas == nil {
+	if o == nil || IsNil(o.Quotas) {
 		return nil, false
 	}
 	return o.Quotas, true
@@ -330,7 +333,7 @@ func (o *BucketInfo) GetQuotasOk() (*BucketInfoQuotas, bool) {
 
 // HasQuotas returns a boolean if a field has been set.
 func (o *BucketInfo) HasQuotas() bool {
-	if o != nil && o.Quotas != nil {
+	if o != nil && !IsNil(o.Quotas) {
 		return true
 	}
 
@@ -343,35 +346,43 @@ func (o *BucketInfo) SetQuotas(v BucketInfoQuotas) {
 }
 
 func (o BucketInfo) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o BucketInfo) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.GlobalAliases != nil {
+	if !IsNil(o.GlobalAliases) {
 		toSerialize["globalAliases"] = o.GlobalAliases
 	}
-	if o.WebsiteAccess != nil {
+	if !IsNil(o.WebsiteAccess) {
 		toSerialize["websiteAccess"] = o.WebsiteAccess
 	}
 	if o.WebsiteConfig.IsSet() {
 		toSerialize["websiteConfig"] = o.WebsiteConfig.Get()
 	}
-	if o.Keys != nil {
+	if !IsNil(o.Keys) {
 		toSerialize["keys"] = o.Keys
 	}
-	if o.Objects != nil {
+	if !IsNil(o.Objects) {
 		toSerialize["objects"] = o.Objects
 	}
-	if o.Bytes != nil {
+	if !IsNil(o.Bytes) {
 		toSerialize["bytes"] = o.Bytes
 	}
-	if o.UnfinishedUploads != nil {
+	if !IsNil(o.UnfinishedUploads) {
 		toSerialize["unfinishedUploads"] = o.UnfinishedUploads
 	}
-	if o.Quotas != nil {
+	if !IsNil(o.Quotas) {
 		toSerialize["quotas"] = o.Quotas
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableBucketInfo struct {

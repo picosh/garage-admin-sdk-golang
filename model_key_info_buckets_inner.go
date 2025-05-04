@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the KeyInfoBucketsInner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &KeyInfoBucketsInner{}
+
 // KeyInfoBucketsInner struct for KeyInfoBucketsInner
 type KeyInfoBucketsInner struct {
 	Id *string `json:"id,omitempty"`
@@ -41,7 +44,7 @@ func NewKeyInfoBucketsInnerWithDefaults() *KeyInfoBucketsInner {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *KeyInfoBucketsInner) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -51,7 +54,7 @@ func (o *KeyInfoBucketsInner) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KeyInfoBucketsInner) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -59,7 +62,7 @@ func (o *KeyInfoBucketsInner) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *KeyInfoBucketsInner) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *KeyInfoBucketsInner) SetId(v string) {
 
 // GetGlobalAliases returns the GlobalAliases field value if set, zero value otherwise.
 func (o *KeyInfoBucketsInner) GetGlobalAliases() []string {
-	if o == nil || o.GlobalAliases == nil {
+	if o == nil || IsNil(o.GlobalAliases) {
 		var ret []string
 		return ret
 	}
@@ -83,7 +86,7 @@ func (o *KeyInfoBucketsInner) GetGlobalAliases() []string {
 // GetGlobalAliasesOk returns a tuple with the GlobalAliases field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KeyInfoBucketsInner) GetGlobalAliasesOk() ([]string, bool) {
-	if o == nil || o.GlobalAliases == nil {
+	if o == nil || IsNil(o.GlobalAliases) {
 		return nil, false
 	}
 	return o.GlobalAliases, true
@@ -91,7 +94,7 @@ func (o *KeyInfoBucketsInner) GetGlobalAliasesOk() ([]string, bool) {
 
 // HasGlobalAliases returns a boolean if a field has been set.
 func (o *KeyInfoBucketsInner) HasGlobalAliases() bool {
-	if o != nil && o.GlobalAliases != nil {
+	if o != nil && !IsNil(o.GlobalAliases) {
 		return true
 	}
 
@@ -105,7 +108,7 @@ func (o *KeyInfoBucketsInner) SetGlobalAliases(v []string) {
 
 // GetLocalAliases returns the LocalAliases field value if set, zero value otherwise.
 func (o *KeyInfoBucketsInner) GetLocalAliases() []string {
-	if o == nil || o.LocalAliases == nil {
+	if o == nil || IsNil(o.LocalAliases) {
 		var ret []string
 		return ret
 	}
@@ -115,7 +118,7 @@ func (o *KeyInfoBucketsInner) GetLocalAliases() []string {
 // GetLocalAliasesOk returns a tuple with the LocalAliases field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KeyInfoBucketsInner) GetLocalAliasesOk() ([]string, bool) {
-	if o == nil || o.LocalAliases == nil {
+	if o == nil || IsNil(o.LocalAliases) {
 		return nil, false
 	}
 	return o.LocalAliases, true
@@ -123,7 +126,7 @@ func (o *KeyInfoBucketsInner) GetLocalAliasesOk() ([]string, bool) {
 
 // HasLocalAliases returns a boolean if a field has been set.
 func (o *KeyInfoBucketsInner) HasLocalAliases() bool {
-	if o != nil && o.LocalAliases != nil {
+	if o != nil && !IsNil(o.LocalAliases) {
 		return true
 	}
 
@@ -137,7 +140,7 @@ func (o *KeyInfoBucketsInner) SetLocalAliases(v []string) {
 
 // GetPermissions returns the Permissions field value if set, zero value otherwise.
 func (o *KeyInfoBucketsInner) GetPermissions() KeyInfoBucketsInnerPermissions {
-	if o == nil || o.Permissions == nil {
+	if o == nil || IsNil(o.Permissions) {
 		var ret KeyInfoBucketsInnerPermissions
 		return ret
 	}
@@ -147,7 +150,7 @@ func (o *KeyInfoBucketsInner) GetPermissions() KeyInfoBucketsInnerPermissions {
 // GetPermissionsOk returns a tuple with the Permissions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KeyInfoBucketsInner) GetPermissionsOk() (*KeyInfoBucketsInnerPermissions, bool) {
-	if o == nil || o.Permissions == nil {
+	if o == nil || IsNil(o.Permissions) {
 		return nil, false
 	}
 	return o.Permissions, true
@@ -155,7 +158,7 @@ func (o *KeyInfoBucketsInner) GetPermissionsOk() (*KeyInfoBucketsInnerPermission
 
 // HasPermissions returns a boolean if a field has been set.
 func (o *KeyInfoBucketsInner) HasPermissions() bool {
-	if o != nil && o.Permissions != nil {
+	if o != nil && !IsNil(o.Permissions) {
 		return true
 	}
 
@@ -168,20 +171,28 @@ func (o *KeyInfoBucketsInner) SetPermissions(v KeyInfoBucketsInnerPermissions) {
 }
 
 func (o KeyInfoBucketsInner) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
-		toSerialize["id"] = o.Id
-	}
-	if o.GlobalAliases != nil {
-		toSerialize["globalAliases"] = o.GlobalAliases
-	}
-	if o.LocalAliases != nil {
-		toSerialize["localAliases"] = o.LocalAliases
-	}
-	if o.Permissions != nil {
-		toSerialize["permissions"] = o.Permissions
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o KeyInfoBucketsInner) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.GlobalAliases) {
+		toSerialize["globalAliases"] = o.GlobalAliases
+	}
+	if !IsNil(o.LocalAliases) {
+		toSerialize["localAliases"] = o.LocalAliases
+	}
+	if !IsNil(o.Permissions) {
+		toSerialize["permissions"] = o.Permissions
+	}
+	return toSerialize, nil
 }
 
 type NullableKeyInfoBucketsInner struct {

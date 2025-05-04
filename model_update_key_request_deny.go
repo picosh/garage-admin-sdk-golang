@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the UpdateKeyRequestDeny type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UpdateKeyRequestDeny{}
+
 // UpdateKeyRequestDeny struct for UpdateKeyRequestDeny
 type UpdateKeyRequestDeny struct {
 	CreateBucket *bool `json:"createBucket,omitempty"`
@@ -38,7 +41,7 @@ func NewUpdateKeyRequestDenyWithDefaults() *UpdateKeyRequestDeny {
 
 // GetCreateBucket returns the CreateBucket field value if set, zero value otherwise.
 func (o *UpdateKeyRequestDeny) GetCreateBucket() bool {
-	if o == nil || o.CreateBucket == nil {
+	if o == nil || IsNil(o.CreateBucket) {
 		var ret bool
 		return ret
 	}
@@ -48,7 +51,7 @@ func (o *UpdateKeyRequestDeny) GetCreateBucket() bool {
 // GetCreateBucketOk returns a tuple with the CreateBucket field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UpdateKeyRequestDeny) GetCreateBucketOk() (*bool, bool) {
-	if o == nil || o.CreateBucket == nil {
+	if o == nil || IsNil(o.CreateBucket) {
 		return nil, false
 	}
 	return o.CreateBucket, true
@@ -56,7 +59,7 @@ func (o *UpdateKeyRequestDeny) GetCreateBucketOk() (*bool, bool) {
 
 // HasCreateBucket returns a boolean if a field has been set.
 func (o *UpdateKeyRequestDeny) HasCreateBucket() bool {
-	if o != nil && o.CreateBucket != nil {
+	if o != nil && !IsNil(o.CreateBucket) {
 		return true
 	}
 
@@ -69,11 +72,19 @@ func (o *UpdateKeyRequestDeny) SetCreateBucket(v bool) {
 }
 
 func (o UpdateKeyRequestDeny) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.CreateBucket != nil {
-		toSerialize["createBucket"] = o.CreateBucket
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o UpdateKeyRequestDeny) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.CreateBucket) {
+		toSerialize["createBucket"] = o.CreateBucket
+	}
+	return toSerialize, nil
 }
 
 type NullableUpdateKeyRequestDeny struct {

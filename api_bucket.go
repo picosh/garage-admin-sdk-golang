@@ -13,18 +13,18 @@ package garage
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 )
 
 
-// BucketApiService BucketApi service
-type BucketApiService service
+// BucketAPIService BucketAPI service
+type BucketAPIService service
 
 type ApiAllowBucketKeyRequest struct {
 	ctx context.Context
-	ApiService *BucketApiService
+	ApiService *BucketAPIService
 	allowBucketKeyRequest *AllowBucketKeyRequest
 }
 
@@ -55,7 +55,7 @@ If you want to disallow read for the key, check the DenyBucketKey operation.
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiAllowBucketKeyRequest
 */
-func (a *BucketApiService) AllowBucketKey(ctx context.Context) ApiAllowBucketKeyRequest {
+func (a *BucketAPIService) AllowBucketKey(ctx context.Context) ApiAllowBucketKeyRequest {
 	return ApiAllowBucketKeyRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -64,7 +64,7 @@ func (a *BucketApiService) AllowBucketKey(ctx context.Context) ApiAllowBucketKey
 
 // Execute executes the request
 //  @return BucketInfo
-func (a *BucketApiService) AllowBucketKeyExecute(r ApiAllowBucketKeyRequest) (*BucketInfo, *http.Response, error) {
+func (a *BucketAPIService) AllowBucketKeyExecute(r ApiAllowBucketKeyRequest) (*BucketInfo, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -72,7 +72,7 @@ func (a *BucketApiService) AllowBucketKeyExecute(r ApiAllowBucketKeyRequest) (*B
 		localVarReturnValue  *BucketInfo
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BucketApiService.AllowBucketKey")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BucketAPIService.AllowBucketKey")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -115,9 +115,9 @@ func (a *BucketApiService) AllowBucketKeyExecute(r ApiAllowBucketKeyRequest) (*B
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -144,7 +144,7 @@ func (a *BucketApiService) AllowBucketKeyExecute(r ApiAllowBucketKeyRequest) (*B
 
 type ApiCreateBucketRequest struct {
 	ctx context.Context
-	ApiService *BucketApiService
+	ApiService *BucketAPIService
 	createBucketRequest *CreateBucketRequest
 }
 
@@ -168,7 +168,7 @@ Technically, you can also specify both `globalAlias` and `localAlias` and that w
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateBucketRequest
 */
-func (a *BucketApiService) CreateBucket(ctx context.Context) ApiCreateBucketRequest {
+func (a *BucketAPIService) CreateBucket(ctx context.Context) ApiCreateBucketRequest {
 	return ApiCreateBucketRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -177,7 +177,7 @@ func (a *BucketApiService) CreateBucket(ctx context.Context) ApiCreateBucketRequ
 
 // Execute executes the request
 //  @return BucketInfo
-func (a *BucketApiService) CreateBucketExecute(r ApiCreateBucketRequest) (*BucketInfo, *http.Response, error) {
+func (a *BucketAPIService) CreateBucketExecute(r ApiCreateBucketRequest) (*BucketInfo, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -185,7 +185,7 @@ func (a *BucketApiService) CreateBucketExecute(r ApiCreateBucketRequest) (*Bucke
 		localVarReturnValue  *BucketInfo
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BucketApiService.CreateBucket")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BucketAPIService.CreateBucket")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -228,9 +228,9 @@ func (a *BucketApiService) CreateBucketExecute(r ApiCreateBucketRequest) (*Bucke
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -257,7 +257,7 @@ func (a *BucketApiService) CreateBucketExecute(r ApiCreateBucketRequest) (*Bucke
 
 type ApiDeleteBucketRequest struct {
 	ctx context.Context
-	ApiService *BucketApiService
+	ApiService *BucketAPIService
 	id *string
 }
 
@@ -282,7 +282,7 @@ Delete a bucket.Deletes a storage bucket. A bucket cannot be deleted if it is no
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiDeleteBucketRequest
 */
-func (a *BucketApiService) DeleteBucket(ctx context.Context) ApiDeleteBucketRequest {
+func (a *BucketAPIService) DeleteBucket(ctx context.Context) ApiDeleteBucketRequest {
 	return ApiDeleteBucketRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -290,14 +290,14 @@ func (a *BucketApiService) DeleteBucket(ctx context.Context) ApiDeleteBucketRequ
 }
 
 // Execute executes the request
-func (a *BucketApiService) DeleteBucketExecute(r ApiDeleteBucketRequest) (*http.Response, error) {
+func (a *BucketAPIService) DeleteBucketExecute(r ApiDeleteBucketRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BucketApiService.DeleteBucket")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BucketAPIService.DeleteBucket")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -311,7 +311,7 @@ func (a *BucketApiService) DeleteBucketExecute(r ApiDeleteBucketRequest) (*http.
 		return nil, reportError("id is required and must be specified")
 	}
 
-	localVarQueryParams.Add("id", parameterToString(*r.id, ""))
+	parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -339,9 +339,9 @@ func (a *BucketApiService) DeleteBucketExecute(r ApiDeleteBucketRequest) (*http.
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -359,7 +359,7 @@ func (a *BucketApiService) DeleteBucketExecute(r ApiDeleteBucketRequest) (*http.
 
 type ApiDeleteBucketGlobalAliasRequest struct {
 	ctx context.Context
-	ApiService *BucketApiService
+	ApiService *BucketAPIService
 	id *string
 	alias *string
 }
@@ -387,7 +387,7 @@ Delete a global alias from the target bucket
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiDeleteBucketGlobalAliasRequest
 */
-func (a *BucketApiService) DeleteBucketGlobalAlias(ctx context.Context) ApiDeleteBucketGlobalAliasRequest {
+func (a *BucketAPIService) DeleteBucketGlobalAlias(ctx context.Context) ApiDeleteBucketGlobalAliasRequest {
 	return ApiDeleteBucketGlobalAliasRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -396,7 +396,7 @@ func (a *BucketApiService) DeleteBucketGlobalAlias(ctx context.Context) ApiDelet
 
 // Execute executes the request
 //  @return BucketInfo
-func (a *BucketApiService) DeleteBucketGlobalAliasExecute(r ApiDeleteBucketGlobalAliasRequest) (*BucketInfo, *http.Response, error) {
+func (a *BucketAPIService) DeleteBucketGlobalAliasExecute(r ApiDeleteBucketGlobalAliasRequest) (*BucketInfo, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
@@ -404,7 +404,7 @@ func (a *BucketApiService) DeleteBucketGlobalAliasExecute(r ApiDeleteBucketGloba
 		localVarReturnValue  *BucketInfo
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BucketApiService.DeleteBucketGlobalAlias")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BucketAPIService.DeleteBucketGlobalAlias")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -421,8 +421,8 @@ func (a *BucketApiService) DeleteBucketGlobalAliasExecute(r ApiDeleteBucketGloba
 		return localVarReturnValue, nil, reportError("alias is required and must be specified")
 	}
 
-	localVarQueryParams.Add("id", parameterToString(*r.id, ""))
-	localVarQueryParams.Add("alias", parameterToString(*r.alias, ""))
+	parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "alias", r.alias, "form", "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -450,9 +450,9 @@ func (a *BucketApiService) DeleteBucketGlobalAliasExecute(r ApiDeleteBucketGloba
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -479,7 +479,7 @@ func (a *BucketApiService) DeleteBucketGlobalAliasExecute(r ApiDeleteBucketGloba
 
 type ApiDeleteBucketLocalAliasRequest struct {
 	ctx context.Context
-	ApiService *BucketApiService
+	ApiService *BucketAPIService
 	id *string
 	accessKeyId *string
 	alias *string
@@ -513,7 +513,7 @@ Delete a local alias, bound to specified account, from the target bucket
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiDeleteBucketLocalAliasRequest
 */
-func (a *BucketApiService) DeleteBucketLocalAlias(ctx context.Context) ApiDeleteBucketLocalAliasRequest {
+func (a *BucketAPIService) DeleteBucketLocalAlias(ctx context.Context) ApiDeleteBucketLocalAliasRequest {
 	return ApiDeleteBucketLocalAliasRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -522,7 +522,7 @@ func (a *BucketApiService) DeleteBucketLocalAlias(ctx context.Context) ApiDelete
 
 // Execute executes the request
 //  @return BucketInfo
-func (a *BucketApiService) DeleteBucketLocalAliasExecute(r ApiDeleteBucketLocalAliasRequest) (*BucketInfo, *http.Response, error) {
+func (a *BucketAPIService) DeleteBucketLocalAliasExecute(r ApiDeleteBucketLocalAliasRequest) (*BucketInfo, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
@@ -530,7 +530,7 @@ func (a *BucketApiService) DeleteBucketLocalAliasExecute(r ApiDeleteBucketLocalA
 		localVarReturnValue  *BucketInfo
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BucketApiService.DeleteBucketLocalAlias")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BucketAPIService.DeleteBucketLocalAlias")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -550,9 +550,9 @@ func (a *BucketApiService) DeleteBucketLocalAliasExecute(r ApiDeleteBucketLocalA
 		return localVarReturnValue, nil, reportError("alias is required and must be specified")
 	}
 
-	localVarQueryParams.Add("id", parameterToString(*r.id, ""))
-	localVarQueryParams.Add("accessKeyId", parameterToString(*r.accessKeyId, ""))
-	localVarQueryParams.Add("alias", parameterToString(*r.alias, ""))
+	parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "accessKeyId", r.accessKeyId, "form", "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "alias", r.alias, "form", "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -580,9 +580,9 @@ func (a *BucketApiService) DeleteBucketLocalAliasExecute(r ApiDeleteBucketLocalA
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -609,7 +609,7 @@ func (a *BucketApiService) DeleteBucketLocalAliasExecute(r ApiDeleteBucketLocalA
 
 type ApiDenyBucketKeyRequest struct {
 	ctx context.Context
-	ApiService *BucketApiService
+	ApiService *BucketAPIService
 	allowBucketKeyRequest *AllowBucketKeyRequest
 }
 
@@ -640,7 +640,7 @@ If you want the key to have the reading permission, check the AllowBucketKey ope
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiDenyBucketKeyRequest
 */
-func (a *BucketApiService) DenyBucketKey(ctx context.Context) ApiDenyBucketKeyRequest {
+func (a *BucketAPIService) DenyBucketKey(ctx context.Context) ApiDenyBucketKeyRequest {
 	return ApiDenyBucketKeyRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -649,7 +649,7 @@ func (a *BucketApiService) DenyBucketKey(ctx context.Context) ApiDenyBucketKeyRe
 
 // Execute executes the request
 //  @return BucketInfo
-func (a *BucketApiService) DenyBucketKeyExecute(r ApiDenyBucketKeyRequest) (*BucketInfo, *http.Response, error) {
+func (a *BucketAPIService) DenyBucketKeyExecute(r ApiDenyBucketKeyRequest) (*BucketInfo, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -657,7 +657,7 @@ func (a *BucketApiService) DenyBucketKeyExecute(r ApiDenyBucketKeyRequest) (*Buc
 		localVarReturnValue  *BucketInfo
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BucketApiService.DenyBucketKey")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BucketAPIService.DenyBucketKey")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -700,9 +700,9 @@ func (a *BucketApiService) DenyBucketKeyExecute(r ApiDenyBucketKeyRequest) (*Buc
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -729,7 +729,7 @@ func (a *BucketApiService) DenyBucketKeyExecute(r ApiDenyBucketKeyRequest) (*Buc
 
 type ApiGetBucketInfoRequest struct {
 	ctx context.Context
-	ApiService *BucketApiService
+	ApiService *BucketAPIService
 	id *string
 	globalAlias *string
 }
@@ -762,7 +762,7 @@ and its quotas (if any).
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetBucketInfoRequest
 */
-func (a *BucketApiService) GetBucketInfo(ctx context.Context) ApiGetBucketInfoRequest {
+func (a *BucketAPIService) GetBucketInfo(ctx context.Context) ApiGetBucketInfoRequest {
 	return ApiGetBucketInfoRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -771,7 +771,7 @@ func (a *BucketApiService) GetBucketInfo(ctx context.Context) ApiGetBucketInfoRe
 
 // Execute executes the request
 //  @return BucketInfo
-func (a *BucketApiService) GetBucketInfoExecute(r ApiGetBucketInfoRequest) (*BucketInfo, *http.Response, error) {
+func (a *BucketAPIService) GetBucketInfoExecute(r ApiGetBucketInfoRequest) (*BucketInfo, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -779,7 +779,7 @@ func (a *BucketApiService) GetBucketInfoExecute(r ApiGetBucketInfoRequest) (*Buc
 		localVarReturnValue  *BucketInfo
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BucketApiService.GetBucketInfo")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BucketAPIService.GetBucketInfo")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -791,10 +791,10 @@ func (a *BucketApiService) GetBucketInfoExecute(r ApiGetBucketInfoRequest) (*Buc
 	localVarFormParams := url.Values{}
 
 	if r.id != nil {
-		localVarQueryParams.Add("id", parameterToString(*r.id, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "")
 	}
 	if r.globalAlias != nil {
-		localVarQueryParams.Add("globalAlias", parameterToString(*r.globalAlias, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "globalAlias", r.globalAlias, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -823,9 +823,9 @@ func (a *BucketApiService) GetBucketInfoExecute(r ApiGetBucketInfoRequest) (*Buc
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -852,7 +852,7 @@ func (a *BucketApiService) GetBucketInfoExecute(r ApiGetBucketInfoRequest) (*Buc
 
 type ApiListBucketsRequest struct {
 	ctx context.Context
-	ApiService *BucketApiService
+	ApiService *BucketAPIService
 }
 
 func (r ApiListBucketsRequest) Execute() ([]ListBuckets200ResponseInner, *http.Response, error) {
@@ -868,7 +868,7 @@ List all the buckets on the cluster with their UUID and their global and local a
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListBucketsRequest
 */
-func (a *BucketApiService) ListBuckets(ctx context.Context) ApiListBucketsRequest {
+func (a *BucketAPIService) ListBuckets(ctx context.Context) ApiListBucketsRequest {
 	return ApiListBucketsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -877,7 +877,7 @@ func (a *BucketApiService) ListBuckets(ctx context.Context) ApiListBucketsReques
 
 // Execute executes the request
 //  @return []ListBuckets200ResponseInner
-func (a *BucketApiService) ListBucketsExecute(r ApiListBucketsRequest) ([]ListBuckets200ResponseInner, *http.Response, error) {
+func (a *BucketAPIService) ListBucketsExecute(r ApiListBucketsRequest) ([]ListBuckets200ResponseInner, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -885,7 +885,7 @@ func (a *BucketApiService) ListBucketsExecute(r ApiListBucketsRequest) ([]ListBu
 		localVarReturnValue  []ListBuckets200ResponseInner
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BucketApiService.ListBuckets")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BucketAPIService.ListBuckets")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -923,9 +923,9 @@ func (a *BucketApiService) ListBucketsExecute(r ApiListBucketsRequest) ([]ListBu
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -952,7 +952,7 @@ func (a *BucketApiService) ListBucketsExecute(r ApiListBucketsRequest) ([]ListBu
 
 type ApiPutBucketGlobalAliasRequest struct {
 	ctx context.Context
-	ApiService *BucketApiService
+	ApiService *BucketAPIService
 	id *string
 	alias *string
 }
@@ -980,7 +980,7 @@ Add a global alias to the target bucket
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiPutBucketGlobalAliasRequest
 */
-func (a *BucketApiService) PutBucketGlobalAlias(ctx context.Context) ApiPutBucketGlobalAliasRequest {
+func (a *BucketAPIService) PutBucketGlobalAlias(ctx context.Context) ApiPutBucketGlobalAliasRequest {
 	return ApiPutBucketGlobalAliasRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -989,7 +989,7 @@ func (a *BucketApiService) PutBucketGlobalAlias(ctx context.Context) ApiPutBucke
 
 // Execute executes the request
 //  @return BucketInfo
-func (a *BucketApiService) PutBucketGlobalAliasExecute(r ApiPutBucketGlobalAliasRequest) (*BucketInfo, *http.Response, error) {
+func (a *BucketAPIService) PutBucketGlobalAliasExecute(r ApiPutBucketGlobalAliasRequest) (*BucketInfo, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
@@ -997,7 +997,7 @@ func (a *BucketApiService) PutBucketGlobalAliasExecute(r ApiPutBucketGlobalAlias
 		localVarReturnValue  *BucketInfo
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BucketApiService.PutBucketGlobalAlias")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BucketAPIService.PutBucketGlobalAlias")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1014,8 +1014,8 @@ func (a *BucketApiService) PutBucketGlobalAliasExecute(r ApiPutBucketGlobalAlias
 		return localVarReturnValue, nil, reportError("alias is required and must be specified")
 	}
 
-	localVarQueryParams.Add("id", parameterToString(*r.id, ""))
-	localVarQueryParams.Add("alias", parameterToString(*r.alias, ""))
+	parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "alias", r.alias, "form", "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1043,9 +1043,9 @@ func (a *BucketApiService) PutBucketGlobalAliasExecute(r ApiPutBucketGlobalAlias
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1072,7 +1072,7 @@ func (a *BucketApiService) PutBucketGlobalAliasExecute(r ApiPutBucketGlobalAlias
 
 type ApiPutBucketLocalAliasRequest struct {
 	ctx context.Context
-	ApiService *BucketApiService
+	ApiService *BucketAPIService
 	id *string
 	accessKeyId *string
 	alias *string
@@ -1106,7 +1106,7 @@ Add a local alias, bound to specified account, to the target bucket
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiPutBucketLocalAliasRequest
 */
-func (a *BucketApiService) PutBucketLocalAlias(ctx context.Context) ApiPutBucketLocalAliasRequest {
+func (a *BucketAPIService) PutBucketLocalAlias(ctx context.Context) ApiPutBucketLocalAliasRequest {
 	return ApiPutBucketLocalAliasRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1115,7 +1115,7 @@ func (a *BucketApiService) PutBucketLocalAlias(ctx context.Context) ApiPutBucket
 
 // Execute executes the request
 //  @return BucketInfo
-func (a *BucketApiService) PutBucketLocalAliasExecute(r ApiPutBucketLocalAliasRequest) (*BucketInfo, *http.Response, error) {
+func (a *BucketAPIService) PutBucketLocalAliasExecute(r ApiPutBucketLocalAliasRequest) (*BucketInfo, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
@@ -1123,7 +1123,7 @@ func (a *BucketApiService) PutBucketLocalAliasExecute(r ApiPutBucketLocalAliasRe
 		localVarReturnValue  *BucketInfo
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BucketApiService.PutBucketLocalAlias")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BucketAPIService.PutBucketLocalAlias")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1143,9 +1143,9 @@ func (a *BucketApiService) PutBucketLocalAliasExecute(r ApiPutBucketLocalAliasRe
 		return localVarReturnValue, nil, reportError("alias is required and must be specified")
 	}
 
-	localVarQueryParams.Add("id", parameterToString(*r.id, ""))
-	localVarQueryParams.Add("accessKeyId", parameterToString(*r.accessKeyId, ""))
-	localVarQueryParams.Add("alias", parameterToString(*r.alias, ""))
+	parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "accessKeyId", r.accessKeyId, "form", "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "alias", r.alias, "form", "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1173,9 +1173,9 @@ func (a *BucketApiService) PutBucketLocalAliasExecute(r ApiPutBucketLocalAliasRe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1202,7 +1202,7 @@ func (a *BucketApiService) PutBucketLocalAliasExecute(r ApiPutBucketLocalAliasRe
 
 type ApiUpdateBucketRequest struct {
 	ctx context.Context
-	ApiService *BucketApiService
+	ApiService *BucketAPIService
 	id *string
 	updateBucketRequest *UpdateBucketRequest
 }
@@ -1242,7 +1242,7 @@ to change only one of the two quotas.
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiUpdateBucketRequest
 */
-func (a *BucketApiService) UpdateBucket(ctx context.Context) ApiUpdateBucketRequest {
+func (a *BucketAPIService) UpdateBucket(ctx context.Context) ApiUpdateBucketRequest {
 	return ApiUpdateBucketRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1251,7 +1251,7 @@ func (a *BucketApiService) UpdateBucket(ctx context.Context) ApiUpdateBucketRequ
 
 // Execute executes the request
 //  @return BucketInfo
-func (a *BucketApiService) UpdateBucketExecute(r ApiUpdateBucketRequest) (*BucketInfo, *http.Response, error) {
+func (a *BucketAPIService) UpdateBucketExecute(r ApiUpdateBucketRequest) (*BucketInfo, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
@@ -1259,7 +1259,7 @@ func (a *BucketApiService) UpdateBucketExecute(r ApiUpdateBucketRequest) (*Bucke
 		localVarReturnValue  *BucketInfo
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BucketApiService.UpdateBucket")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BucketAPIService.UpdateBucket")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1276,7 +1276,7 @@ func (a *BucketApiService) UpdateBucketExecute(r ApiUpdateBucketRequest) (*Bucke
 		return localVarReturnValue, nil, reportError("updateBucketRequest is required and must be specified")
 	}
 
-	localVarQueryParams.Add("id", parameterToString(*r.id, ""))
+	parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -1306,9 +1306,9 @@ func (a *BucketApiService) UpdateBucketExecute(r ApiUpdateBucketRequest) (*Bucke
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

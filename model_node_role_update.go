@@ -12,7 +12,12 @@ package garage
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the NodeRoleUpdate type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NodeRoleUpdate{}
 
 // NodeRoleUpdate struct for NodeRoleUpdate
 type NodeRoleUpdate struct {
@@ -21,6 +26,8 @@ type NodeRoleUpdate struct {
 	Capacity NullableInt64 `json:"capacity"`
 	Tags []string `json:"tags"`
 }
+
+type _NodeRoleUpdate NodeRoleUpdate
 
 // NewNodeRoleUpdate instantiates a new NodeRoleUpdate object
 // This constructor will assign default values to properties that have it defined,
@@ -142,20 +149,60 @@ func (o *NodeRoleUpdate) SetTags(v []string) {
 }
 
 func (o NodeRoleUpdate) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["zone"] = o.Zone
-	}
-	if true {
-		toSerialize["capacity"] = o.Capacity.Get()
-	}
-	if true {
-		toSerialize["tags"] = o.Tags
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o NodeRoleUpdate) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["zone"] = o.Zone
+	toSerialize["capacity"] = o.Capacity.Get()
+	toSerialize["tags"] = o.Tags
+	return toSerialize, nil
+}
+
+func (o *NodeRoleUpdate) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"zone",
+		"capacity",
+		"tags",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varNodeRoleUpdate := _NodeRoleUpdate{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varNodeRoleUpdate)
+
+	if err != nil {
+		return err
+	}
+
+	*o = NodeRoleUpdate(varNodeRoleUpdate)
+
+	return err
 }
 
 type NullableNodeRoleUpdate struct {

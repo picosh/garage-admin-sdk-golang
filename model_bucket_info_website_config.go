@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the BucketInfoWebsiteConfig type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BucketInfoWebsiteConfig{}
+
 // BucketInfoWebsiteConfig struct for BucketInfoWebsiteConfig
 type BucketInfoWebsiteConfig struct {
 	IndexDocument *string `json:"indexDocument,omitempty"`
@@ -39,7 +42,7 @@ func NewBucketInfoWebsiteConfigWithDefaults() *BucketInfoWebsiteConfig {
 
 // GetIndexDocument returns the IndexDocument field value if set, zero value otherwise.
 func (o *BucketInfoWebsiteConfig) GetIndexDocument() string {
-	if o == nil || o.IndexDocument == nil {
+	if o == nil || IsNil(o.IndexDocument) {
 		var ret string
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *BucketInfoWebsiteConfig) GetIndexDocument() string {
 // GetIndexDocumentOk returns a tuple with the IndexDocument field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BucketInfoWebsiteConfig) GetIndexDocumentOk() (*string, bool) {
-	if o == nil || o.IndexDocument == nil {
+	if o == nil || IsNil(o.IndexDocument) {
 		return nil, false
 	}
 	return o.IndexDocument, true
@@ -57,7 +60,7 @@ func (o *BucketInfoWebsiteConfig) GetIndexDocumentOk() (*string, bool) {
 
 // HasIndexDocument returns a boolean if a field has been set.
 func (o *BucketInfoWebsiteConfig) HasIndexDocument() bool {
-	if o != nil && o.IndexDocument != nil {
+	if o != nil && !IsNil(o.IndexDocument) {
 		return true
 	}
 
@@ -71,7 +74,7 @@ func (o *BucketInfoWebsiteConfig) SetIndexDocument(v string) {
 
 // GetErrorDocument returns the ErrorDocument field value if set, zero value otherwise.
 func (o *BucketInfoWebsiteConfig) GetErrorDocument() string {
-	if o == nil || o.ErrorDocument == nil {
+	if o == nil || IsNil(o.ErrorDocument) {
 		var ret string
 		return ret
 	}
@@ -81,7 +84,7 @@ func (o *BucketInfoWebsiteConfig) GetErrorDocument() string {
 // GetErrorDocumentOk returns a tuple with the ErrorDocument field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BucketInfoWebsiteConfig) GetErrorDocumentOk() (*string, bool) {
-	if o == nil || o.ErrorDocument == nil {
+	if o == nil || IsNil(o.ErrorDocument) {
 		return nil, false
 	}
 	return o.ErrorDocument, true
@@ -89,7 +92,7 @@ func (o *BucketInfoWebsiteConfig) GetErrorDocumentOk() (*string, bool) {
 
 // HasErrorDocument returns a boolean if a field has been set.
 func (o *BucketInfoWebsiteConfig) HasErrorDocument() bool {
-	if o != nil && o.ErrorDocument != nil {
+	if o != nil && !IsNil(o.ErrorDocument) {
 		return true
 	}
 
@@ -102,14 +105,22 @@ func (o *BucketInfoWebsiteConfig) SetErrorDocument(v string) {
 }
 
 func (o BucketInfoWebsiteConfig) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.IndexDocument != nil {
-		toSerialize["indexDocument"] = o.IndexDocument
-	}
-	if o.ErrorDocument != nil {
-		toSerialize["errorDocument"] = o.ErrorDocument
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o BucketInfoWebsiteConfig) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.IndexDocument) {
+		toSerialize["indexDocument"] = o.IndexDocument
+	}
+	if !IsNil(o.ErrorDocument) {
+		toSerialize["errorDocument"] = o.ErrorDocument
+	}
+	return toSerialize, nil
 }
 
 type NullableBucketInfoWebsiteConfig struct {

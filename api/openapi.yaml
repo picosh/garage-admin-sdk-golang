@@ -25,7 +25,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GetHealth_200_response'
+                $ref: "#/components/schemas/GetHealth_200_response"
           description: |
             Information about the queried node, its environment and the current layout
       summary: Cluster health report
@@ -50,7 +50,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GetNodes_200_response'
+                $ref: "#/components/schemas/GetNodes_200_response"
           description: |
             Information about the queried node, its environment and the current layout
       summary: Describe cluster
@@ -89,7 +89,7 @@ paths:
                 - success: false
                   error: Handshake error
                 items:
-                  $ref: '#/components/schemas/AddNode_200_response_inner'
+                  $ref: "#/components/schemas/AddNode_200_response_inner"
                 type: array
           description: |
             The request has been handled correctly but it does not mean that all connection requests succeeded; some might have fail, you need to check the body!
@@ -111,7 +111,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ClusterLayout'
+                $ref: "#/components/schemas/ClusterLayout"
           description: |
             Returns the cluster's current cluster layout:
               - Currently configured cluster layout
@@ -142,7 +142,7 @@ paths:
               - id: 4a6ae5a1d0d33bf895f5bb4f0a418b7dc94c47c0dd2eb108d1158f3c8f60b0ff
                 remove: true
               items:
-                $ref: '#/components/schemas/NodeRoleChange'
+                $ref: "#/components/schemas/NodeRoleChange"
               type: array
         description: |
           To add a new node to the layout or to change the configuration of an existing node, simply set the values you want (`zone`, `capacity`, and `tags`).
@@ -161,7 +161,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ClusterLayout'
+                $ref: "#/components/schemas/ClusterLayout"
           description: The layout modification has been correctly staged
       summary: Send modifications to the cluster layout
       tags:
@@ -177,7 +177,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/LayoutVersion'
+              $ref: "#/components/schemas/LayoutVersion"
         description: |
           Similarly to the CLI, the body must include the version of the new layout that will be created, which MUST be 1 + the value of the currently existing layout in the cluster.
         required: true
@@ -191,7 +191,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApplyLayout_200_response'
+                $ref: "#/components/schemas/ApplyLayout_200_response"
           description: "The staged layout has been applied as the new layout of the\
             \ cluster, a rebalance has been triggered."
       summary: Apply staged layout
@@ -206,7 +206,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/LayoutVersion'
+              $ref: "#/components/schemas/LayoutVersion"
         description: |
           Reverting the staged changes is done by incrementing the version number and clearing the contents of the staged change list. Similarly to the CLI, the body must include the incremented version number, which MUST be 1 + the value of the currently existing layout in the cluster.
         required: true
@@ -241,7 +241,7 @@ paths:
                 - id: GKe10061ac9c2921f09e4c5540
                   name: ""
                 items:
-                  $ref: '#/components/schemas/ListKeys_200_response_inner'
+                  $ref: "#/components/schemas/ListKeys_200_response_inner"
                 type: array
           description: |
             Returns the key identifier (aka `AWS_ACCESS_KEY_ID`) and its associated, human friendly, name if any (otherwise return an empty string)
@@ -256,7 +256,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AddKey_request'
+              $ref: "#/components/schemas/AddKey_request"
         description: |
           You can set a friendly name for this key.
           If you don't want to, you can set the name to `null`.
@@ -273,7 +273,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/KeyInfo'
+                $ref: "#/components/schemas/KeyInfo"
           description: The key has been added
       summary: Create a new API key
       tags:
@@ -356,7 +356,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/KeyInfo'
+                $ref: "#/components/schemas/KeyInfo"
           description: |
             Returns information about the key
       summary: Get key information
@@ -382,7 +382,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UpdateKey_request'
+              $ref: "#/components/schemas/UpdateKey_request"
         description: |
           For a given key, provide a first set with the permissions to grant, and a second set with the permissions to remove
         required: true
@@ -396,7 +396,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/KeyInfo'
+                $ref: "#/components/schemas/KeyInfo"
           description: |
             Returns information about the key
       summary: Update a key
@@ -413,7 +413,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ImportKey_request'
+              $ref: "#/components/schemas/ImportKey_request"
         description: |
           Information on the key to import
         required: true
@@ -427,7 +427,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/KeyInfo'
+                $ref: "#/components/schemas/KeyInfo"
           description: The key has been imported into the system
       summary: Import an existing key
       tags:
@@ -464,7 +464,7 @@ paths:
                     accessKeyid: GK31c2f218a2e44f485b94239e
                 - id: ""
                 items:
-                  $ref: '#/components/schemas/ListBuckets_200_response_inner'
+                  $ref: "#/components/schemas/ListBuckets_200_response_inner"
                 type: array
           description: |
             Returns the UUID of the bucket and all its aliases
@@ -543,7 +543,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BucketInfo'
+                $ref: "#/components/schemas/BucketInfo"
           description: Returns exhaustive information about the bucket
       summary: Get a bucket
       tags:
@@ -557,7 +557,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateBucket_request'
+              $ref: "#/components/schemas/CreateBucket_request"
         description: |
           Aliases to put on the new bucket
         required: true
@@ -571,7 +571,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BucketInfo'
+                $ref: "#/components/schemas/BucketInfo"
           description: Returns exhaustive information about the bucket
       summary: Create a bucket
       tags:
@@ -604,7 +604,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UpdateBucket_request'
+              $ref: "#/components/schemas/UpdateBucket_request"
         description: |
           Requested changes on the bucket. Both root fields are optionals.
         required: true
@@ -620,7 +620,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BucketInfo'
+                $ref: "#/components/schemas/BucketInfo"
           description: Returns exhaustive information about the bucket
       summary: Update a bucket
       tags:
@@ -642,7 +642,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AllowBucketKey_request'
+              $ref: "#/components/schemas/AllowBucketKey_request"
         description: |
           Aliases to put on the new bucket
         required: true
@@ -658,7 +658,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BucketInfo'
+                $ref: "#/components/schemas/BucketInfo"
           description: Returns exhaustive information about the bucket
       summary: Allow key
       tags:
@@ -680,7 +680,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AllowBucketKey_request'
+              $ref: "#/components/schemas/AllowBucketKey_request"
         description: |
           Aliases to put on the new bucket
         required: true
@@ -696,7 +696,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BucketInfo'
+                $ref: "#/components/schemas/BucketInfo"
           description: Returns exhaustive information about the bucket
       summary: Deny key
       tags:
@@ -735,7 +735,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BucketInfo'
+                $ref: "#/components/schemas/BucketInfo"
           description: Returns exhaustive information about the bucket
       summary: Delete a global alias
       tags:
@@ -773,7 +773,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BucketInfo'
+                $ref: "#/components/schemas/BucketInfo"
           description: Returns exhaustive information about the bucket
       summary: Add a global alias
       tags:
@@ -820,7 +820,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BucketInfo'
+                $ref: "#/components/schemas/BucketInfo"
           description: Returns exhaustive information about the bucket
       summary: Delete a local alias
       tags:
@@ -866,7 +866,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BucketInfo'
+                $ref: "#/components/schemas/BucketInfo"
           description: Returns exhaustive information about the bucket
       summary: Add a local alias
       tags:
@@ -923,9 +923,12 @@ components:
       type: object
     NodeRoleChange:
       oneOf:
-      - $ref: '#/components/schemas/NodeRoleRemove'
-      - $ref: '#/components/schemas/NodeRoleUpdate'
+      - $ref: "#/components/schemas/NodeRoleRemove"
+      - $ref: "#/components/schemas/NodeRoleUpdate"
     NodeRoleRemove:
+      example:
+        id: 6a8e08af2aab1083ebab9b22165ea8b5b9d333b60a39ecd504e85cc1f432c36f
+        remove: true
       properties:
         id:
           example: 6a8e08af2aab1083ebab9b22165ea8b5b9d333b60a39ecd504e85cc1f432c36f
@@ -1004,7 +1007,7 @@ components:
             tags:
             - arm64
           items:
-            $ref: '#/components/schemas/NodeClusterInfo'
+            $ref: "#/components/schemas/NodeClusterInfo"
           type: array
         stagedRoleChanges:
           example:
@@ -1016,7 +1019,7 @@ components:
           - id: 4a6ae5a1d0d33bf895f5bb4f0a418b7dc94c47c0dd2eb108d1158f3c8f60b0ff
             remove: true
           items:
-            $ref: '#/components/schemas/NodeRoleChange'
+            $ref: "#/components/schemas/NodeRoleChange"
           type: array
       required:
       - roles
@@ -1075,10 +1078,10 @@ components:
           nullable: true
           type: string
         permissions:
-          $ref: '#/components/schemas/KeyInfo_permissions'
+          $ref: "#/components/schemas/KeyInfo_permissions"
         buckets:
           items:
-            $ref: '#/components/schemas/KeyInfo_buckets_inner'
+            $ref: "#/components/schemas/KeyInfo_buckets_inner"
           type: array
       type: object
     BucketInfo:
@@ -1129,10 +1132,10 @@ components:
           example: true
           type: boolean
         websiteConfig:
-          $ref: '#/components/schemas/BucketInfo_websiteConfig'
+          $ref: "#/components/schemas/BucketInfo_websiteConfig"
         keys:
           items:
-            $ref: '#/components/schemas/BucketKeyInfo'
+            $ref: "#/components/schemas/BucketKeyInfo"
           type: array
         objects:
           example: 14827
@@ -1146,7 +1149,7 @@ components:
           example: 0
           type: integer
         quotas:
-          $ref: '#/components/schemas/BucketInfo_quotas'
+          $ref: "#/components/schemas/BucketInfo_quotas"
       type: object
     BucketKeyInfo:
       example:
@@ -1165,7 +1168,7 @@ components:
         name:
           type: string
         permissions:
-          $ref: '#/components/schemas/CreateBucket_request_localAlias_allow'
+          $ref: "#/components/schemas/CreateBucket_request_localAlias_allow"
         bucketLocalAliases:
           items:
             example: my_documents
@@ -1321,10 +1324,10 @@ components:
             lastSeenSecsAgo: 2
             hostname: neptune
           items:
-            $ref: '#/components/schemas/NodeNetworkInfo'
+            $ref: "#/components/schemas/NodeNetworkInfo"
           type: array
         layout:
-          $ref: '#/components/schemas/ClusterLayout'
+          $ref: "#/components/schemas/ClusterLayout"
       required:
       - dbEngine
       - garageFeatures
@@ -1409,7 +1412,7 @@ components:
             type: string
           type: array
         layout:
-          $ref: '#/components/schemas/ClusterLayout'
+          $ref: "#/components/schemas/ClusterLayout"
       required:
       - layout
       - message
@@ -1449,9 +1452,9 @@ components:
           example: test-key
           type: string
         allow:
-          $ref: '#/components/schemas/UpdateKey_request_allow'
+          $ref: "#/components/schemas/UpdateKey_request_allow"
         deny:
-          $ref: '#/components/schemas/UpdateKey_request_deny'
+          $ref: "#/components/schemas/UpdateKey_request_deny"
       type: object
     ImportKey_request:
       properties:
@@ -1490,7 +1493,7 @@ components:
           type: array
         localAliases:
           items:
-            $ref: '#/components/schemas/ListBuckets_200_response_inner_localAliases_inner'
+            $ref: "#/components/schemas/ListBuckets_200_response_inner_localAliases_inner"
           type: array
       required:
       - id
@@ -1523,9 +1526,9 @@ components:
     UpdateBucket_request:
       properties:
         websiteAccess:
-          $ref: '#/components/schemas/UpdateBucket_request_websiteAccess'
+          $ref: "#/components/schemas/UpdateBucket_request_websiteAccess"
         quotas:
-          $ref: '#/components/schemas/UpdateBucket_request_quotas'
+          $ref: "#/components/schemas/UpdateBucket_request_quotas"
       type: object
     CreateBucket_request_localAlias_allow:
       example:
@@ -1550,7 +1553,7 @@ components:
         alias:
           type: string
         allow:
-          $ref: '#/components/schemas/CreateBucket_request_localAlias_allow'
+          $ref: "#/components/schemas/CreateBucket_request_localAlias_allow"
       type: object
     CreateBucket_request:
       properties:
@@ -1558,7 +1561,7 @@ components:
           example: my_documents
           type: string
         localAlias:
-          $ref: '#/components/schemas/CreateBucket_request_localAlias'
+          $ref: "#/components/schemas/CreateBucket_request_localAlias"
       type: object
     AllowBucketKey_request_permissions:
       properties:
@@ -1585,7 +1588,7 @@ components:
           example: GK31c2f218a2e44f485b94239e
           type: string
         permissions:
-          $ref: '#/components/schemas/AllowBucketKey_request_permissions'
+          $ref: "#/components/schemas/AllowBucketKey_request_permissions"
       required:
       - accessKeyId
       - bucketId
@@ -1643,7 +1646,7 @@ components:
             type: string
           type: array
         permissions:
-          $ref: '#/components/schemas/KeyInfo_buckets_inner_permissions'
+          $ref: "#/components/schemas/KeyInfo_buckets_inner_permissions"
       type: object
     BucketInfo_websiteConfig:
       example:

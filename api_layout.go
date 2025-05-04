@@ -13,18 +13,18 @@ package garage
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 )
 
 
-// LayoutApiService LayoutApi service
-type LayoutApiService service
+// LayoutAPIService LayoutAPI service
+type LayoutAPIService service
 
 type ApiAddLayoutRequest struct {
 	ctx context.Context
-	ApiService *LayoutApiService
+	ApiService *LayoutAPIService
 	nodeRoleChange *[]NodeRoleChange
 }
 
@@ -53,7 +53,7 @@ Garage uses internally the International System of Units (SI), it assumes that 1
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiAddLayoutRequest
 */
-func (a *LayoutApiService) AddLayout(ctx context.Context) ApiAddLayoutRequest {
+func (a *LayoutAPIService) AddLayout(ctx context.Context) ApiAddLayoutRequest {
 	return ApiAddLayoutRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -62,7 +62,7 @@ func (a *LayoutApiService) AddLayout(ctx context.Context) ApiAddLayoutRequest {
 
 // Execute executes the request
 //  @return ClusterLayout
-func (a *LayoutApiService) AddLayoutExecute(r ApiAddLayoutRequest) (*ClusterLayout, *http.Response, error) {
+func (a *LayoutAPIService) AddLayoutExecute(r ApiAddLayoutRequest) (*ClusterLayout, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -70,7 +70,7 @@ func (a *LayoutApiService) AddLayoutExecute(r ApiAddLayoutRequest) (*ClusterLayo
 		localVarReturnValue  *ClusterLayout
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LayoutApiService.AddLayout")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LayoutAPIService.AddLayout")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -113,9 +113,9 @@ func (a *LayoutApiService) AddLayoutExecute(r ApiAddLayoutRequest) (*ClusterLayo
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -142,7 +142,7 @@ func (a *LayoutApiService) AddLayoutExecute(r ApiAddLayoutRequest) (*ClusterLayo
 
 type ApiApplyLayoutRequest struct {
 	ctx context.Context
-	ApiService *LayoutApiService
+	ApiService *LayoutAPIService
 	layoutVersion *LayoutVersion
 }
 
@@ -167,7 +167,7 @@ Applies to the cluster the layout changes currently registered as staged layout 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiApplyLayoutRequest
 */
-func (a *LayoutApiService) ApplyLayout(ctx context.Context) ApiApplyLayoutRequest {
+func (a *LayoutAPIService) ApplyLayout(ctx context.Context) ApiApplyLayoutRequest {
 	return ApiApplyLayoutRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -176,7 +176,7 @@ func (a *LayoutApiService) ApplyLayout(ctx context.Context) ApiApplyLayoutReques
 
 // Execute executes the request
 //  @return ApplyLayout200Response
-func (a *LayoutApiService) ApplyLayoutExecute(r ApiApplyLayoutRequest) (*ApplyLayout200Response, *http.Response, error) {
+func (a *LayoutAPIService) ApplyLayoutExecute(r ApiApplyLayoutRequest) (*ApplyLayout200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -184,7 +184,7 @@ func (a *LayoutApiService) ApplyLayoutExecute(r ApiApplyLayoutRequest) (*ApplyLa
 		localVarReturnValue  *ApplyLayout200Response
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LayoutApiService.ApplyLayout")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LayoutAPIService.ApplyLayout")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -227,9 +227,9 @@ func (a *LayoutApiService) ApplyLayoutExecute(r ApiApplyLayoutRequest) (*ApplyLa
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -256,7 +256,7 @@ func (a *LayoutApiService) ApplyLayoutExecute(r ApiApplyLayoutRequest) (*ApplyLa
 
 type ApiGetLayoutRequest struct {
 	ctx context.Context
-	ApiService *LayoutApiService
+	ApiService *LayoutAPIService
 }
 
 func (r ApiGetLayoutRequest) Execute() (*ClusterLayout, *http.Response, error) {
@@ -277,7 +277,7 @@ Returns the cluster's current layout, including:
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetLayoutRequest
 */
-func (a *LayoutApiService) GetLayout(ctx context.Context) ApiGetLayoutRequest {
+func (a *LayoutAPIService) GetLayout(ctx context.Context) ApiGetLayoutRequest {
 	return ApiGetLayoutRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -286,7 +286,7 @@ func (a *LayoutApiService) GetLayout(ctx context.Context) ApiGetLayoutRequest {
 
 // Execute executes the request
 //  @return ClusterLayout
-func (a *LayoutApiService) GetLayoutExecute(r ApiGetLayoutRequest) (*ClusterLayout, *http.Response, error) {
+func (a *LayoutAPIService) GetLayoutExecute(r ApiGetLayoutRequest) (*ClusterLayout, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -294,7 +294,7 @@ func (a *LayoutApiService) GetLayoutExecute(r ApiGetLayoutRequest) (*ClusterLayo
 		localVarReturnValue  *ClusterLayout
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LayoutApiService.GetLayout")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LayoutAPIService.GetLayout")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -332,9 +332,9 @@ func (a *LayoutApiService) GetLayoutExecute(r ApiGetLayoutRequest) (*ClusterLayo
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -361,7 +361,7 @@ func (a *LayoutApiService) GetLayoutExecute(r ApiGetLayoutRequest) (*ClusterLayo
 
 type ApiRevertLayoutRequest struct {
 	ctx context.Context
-	ApiService *LayoutApiService
+	ApiService *LayoutAPIService
 	layoutVersion *LayoutVersion
 }
 
@@ -384,7 +384,7 @@ Clears all of the staged layout changes.
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiRevertLayoutRequest
 */
-func (a *LayoutApiService) RevertLayout(ctx context.Context) ApiRevertLayoutRequest {
+func (a *LayoutAPIService) RevertLayout(ctx context.Context) ApiRevertLayoutRequest {
 	return ApiRevertLayoutRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -392,14 +392,14 @@ func (a *LayoutApiService) RevertLayout(ctx context.Context) ApiRevertLayoutRequ
 }
 
 // Execute executes the request
-func (a *LayoutApiService) RevertLayoutExecute(r ApiRevertLayoutRequest) (*http.Response, error) {
+func (a *LayoutAPIService) RevertLayoutExecute(r ApiRevertLayoutRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LayoutApiService.RevertLayout")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LayoutAPIService.RevertLayout")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -442,9 +442,9 @@ func (a *LayoutApiService) RevertLayoutExecute(r ApiRevertLayoutRequest) (*http.
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}

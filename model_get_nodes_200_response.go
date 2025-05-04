@@ -12,7 +12,12 @@ package garage
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the GetNodes200Response type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GetNodes200Response{}
 
 // GetNodes200Response struct for GetNodes200Response
 type GetNodes200Response struct {
@@ -24,6 +29,8 @@ type GetNodes200Response struct {
 	KnownNodes []NodeNetworkInfo `json:"knownNodes"`
 	Layout ClusterLayout `json:"layout"`
 }
+
+type _GetNodes200Response GetNodes200Response
 
 // NewGetNodes200Response instantiates a new GetNodes200Response object
 // This constructor will assign default values to properties that have it defined,
@@ -218,29 +225,66 @@ func (o *GetNodes200Response) SetLayout(v ClusterLayout) {
 }
 
 func (o GetNodes200Response) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["node"] = o.Node
-	}
-	if true {
-		toSerialize["garageVersion"] = o.GarageVersion
-	}
-	if true {
-		toSerialize["garageFeatures"] = o.GarageFeatures
-	}
-	if true {
-		toSerialize["rustVersion"] = o.RustVersion
-	}
-	if true {
-		toSerialize["dbEngine"] = o.DbEngine
-	}
-	if true {
-		toSerialize["knownNodes"] = o.KnownNodes
-	}
-	if true {
-		toSerialize["layout"] = o.Layout
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o GetNodes200Response) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["node"] = o.Node
+	toSerialize["garageVersion"] = o.GarageVersion
+	toSerialize["garageFeatures"] = o.GarageFeatures
+	toSerialize["rustVersion"] = o.RustVersion
+	toSerialize["dbEngine"] = o.DbEngine
+	toSerialize["knownNodes"] = o.KnownNodes
+	toSerialize["layout"] = o.Layout
+	return toSerialize, nil
+}
+
+func (o *GetNodes200Response) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"node",
+		"garageVersion",
+		"garageFeatures",
+		"rustVersion",
+		"dbEngine",
+		"knownNodes",
+		"layout",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varGetNodes200Response := _GetNodes200Response{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varGetNodes200Response)
+
+	if err != nil {
+		return err
+	}
+
+	*o = GetNodes200Response(varGetNodes200Response)
+
+	return err
 }
 
 type NullableGetNodes200Response struct {

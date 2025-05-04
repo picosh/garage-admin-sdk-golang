@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the CreateBucketRequestLocalAlias type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreateBucketRequestLocalAlias{}
+
 // CreateBucketRequestLocalAlias struct for CreateBucketRequestLocalAlias
 type CreateBucketRequestLocalAlias struct {
 	AccessKeyId *string `json:"accessKeyId,omitempty"`
@@ -40,7 +43,7 @@ func NewCreateBucketRequestLocalAliasWithDefaults() *CreateBucketRequestLocalAli
 
 // GetAccessKeyId returns the AccessKeyId field value if set, zero value otherwise.
 func (o *CreateBucketRequestLocalAlias) GetAccessKeyId() string {
-	if o == nil || o.AccessKeyId == nil {
+	if o == nil || IsNil(o.AccessKeyId) {
 		var ret string
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *CreateBucketRequestLocalAlias) GetAccessKeyId() string {
 // GetAccessKeyIdOk returns a tuple with the AccessKeyId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateBucketRequestLocalAlias) GetAccessKeyIdOk() (*string, bool) {
-	if o == nil || o.AccessKeyId == nil {
+	if o == nil || IsNil(o.AccessKeyId) {
 		return nil, false
 	}
 	return o.AccessKeyId, true
@@ -58,7 +61,7 @@ func (o *CreateBucketRequestLocalAlias) GetAccessKeyIdOk() (*string, bool) {
 
 // HasAccessKeyId returns a boolean if a field has been set.
 func (o *CreateBucketRequestLocalAlias) HasAccessKeyId() bool {
-	if o != nil && o.AccessKeyId != nil {
+	if o != nil && !IsNil(o.AccessKeyId) {
 		return true
 	}
 
@@ -72,7 +75,7 @@ func (o *CreateBucketRequestLocalAlias) SetAccessKeyId(v string) {
 
 // GetAlias returns the Alias field value if set, zero value otherwise.
 func (o *CreateBucketRequestLocalAlias) GetAlias() string {
-	if o == nil || o.Alias == nil {
+	if o == nil || IsNil(o.Alias) {
 		var ret string
 		return ret
 	}
@@ -82,7 +85,7 @@ func (o *CreateBucketRequestLocalAlias) GetAlias() string {
 // GetAliasOk returns a tuple with the Alias field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateBucketRequestLocalAlias) GetAliasOk() (*string, bool) {
-	if o == nil || o.Alias == nil {
+	if o == nil || IsNil(o.Alias) {
 		return nil, false
 	}
 	return o.Alias, true
@@ -90,7 +93,7 @@ func (o *CreateBucketRequestLocalAlias) GetAliasOk() (*string, bool) {
 
 // HasAlias returns a boolean if a field has been set.
 func (o *CreateBucketRequestLocalAlias) HasAlias() bool {
-	if o != nil && o.Alias != nil {
+	if o != nil && !IsNil(o.Alias) {
 		return true
 	}
 
@@ -104,7 +107,7 @@ func (o *CreateBucketRequestLocalAlias) SetAlias(v string) {
 
 // GetAllow returns the Allow field value if set, zero value otherwise.
 func (o *CreateBucketRequestLocalAlias) GetAllow() CreateBucketRequestLocalAliasAllow {
-	if o == nil || o.Allow == nil {
+	if o == nil || IsNil(o.Allow) {
 		var ret CreateBucketRequestLocalAliasAllow
 		return ret
 	}
@@ -114,7 +117,7 @@ func (o *CreateBucketRequestLocalAlias) GetAllow() CreateBucketRequestLocalAlias
 // GetAllowOk returns a tuple with the Allow field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateBucketRequestLocalAlias) GetAllowOk() (*CreateBucketRequestLocalAliasAllow, bool) {
-	if o == nil || o.Allow == nil {
+	if o == nil || IsNil(o.Allow) {
 		return nil, false
 	}
 	return o.Allow, true
@@ -122,7 +125,7 @@ func (o *CreateBucketRequestLocalAlias) GetAllowOk() (*CreateBucketRequestLocalA
 
 // HasAllow returns a boolean if a field has been set.
 func (o *CreateBucketRequestLocalAlias) HasAllow() bool {
-	if o != nil && o.Allow != nil {
+	if o != nil && !IsNil(o.Allow) {
 		return true
 	}
 
@@ -135,17 +138,25 @@ func (o *CreateBucketRequestLocalAlias) SetAllow(v CreateBucketRequestLocalAlias
 }
 
 func (o CreateBucketRequestLocalAlias) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.AccessKeyId != nil {
-		toSerialize["accessKeyId"] = o.AccessKeyId
-	}
-	if o.Alias != nil {
-		toSerialize["alias"] = o.Alias
-	}
-	if o.Allow != nil {
-		toSerialize["allow"] = o.Allow
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CreateBucketRequestLocalAlias) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AccessKeyId) {
+		toSerialize["accessKeyId"] = o.AccessKeyId
+	}
+	if !IsNil(o.Alias) {
+		toSerialize["alias"] = o.Alias
+	}
+	if !IsNil(o.Allow) {
+		toSerialize["allow"] = o.Allow
+	}
+	return toSerialize, nil
 }
 
 type NullableCreateBucketRequestLocalAlias struct {

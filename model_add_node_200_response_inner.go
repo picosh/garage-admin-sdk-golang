@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the AddNode200ResponseInner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AddNode200ResponseInner{}
+
 // AddNode200ResponseInner struct for AddNode200ResponseInner
 type AddNode200ResponseInner struct {
 	Success *bool `json:"success,omitempty"`
@@ -39,7 +42,7 @@ func NewAddNode200ResponseInnerWithDefaults() *AddNode200ResponseInner {
 
 // GetSuccess returns the Success field value if set, zero value otherwise.
 func (o *AddNode200ResponseInner) GetSuccess() bool {
-	if o == nil || o.Success == nil {
+	if o == nil || IsNil(o.Success) {
 		var ret bool
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *AddNode200ResponseInner) GetSuccess() bool {
 // GetSuccessOk returns a tuple with the Success field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AddNode200ResponseInner) GetSuccessOk() (*bool, bool) {
-	if o == nil || o.Success == nil {
+	if o == nil || IsNil(o.Success) {
 		return nil, false
 	}
 	return o.Success, true
@@ -57,7 +60,7 @@ func (o *AddNode200ResponseInner) GetSuccessOk() (*bool, bool) {
 
 // HasSuccess returns a boolean if a field has been set.
 func (o *AddNode200ResponseInner) HasSuccess() bool {
-	if o != nil && o.Success != nil {
+	if o != nil && !IsNil(o.Success) {
 		return true
 	}
 
@@ -71,7 +74,7 @@ func (o *AddNode200ResponseInner) SetSuccess(v bool) {
 
 // GetError returns the Error field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *AddNode200ResponseInner) GetError() string {
-	if o == nil || o.Error.Get() == nil {
+	if o == nil || IsNil(o.Error.Get()) {
 		var ret string
 		return ret
 	}
@@ -112,14 +115,22 @@ func (o *AddNode200ResponseInner) UnsetError() {
 }
 
 func (o AddNode200ResponseInner) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AddNode200ResponseInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Success != nil {
+	if !IsNil(o.Success) {
 		toSerialize["success"] = o.Success
 	}
 	if o.Error.IsSet() {
 		toSerialize["error"] = o.Error.Get()
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableAddNode200ResponseInner struct {

@@ -12,7 +12,12 @@ package garage
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the ImportKeyRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ImportKeyRequest{}
 
 // ImportKeyRequest struct for ImportKeyRequest
 type ImportKeyRequest struct {
@@ -20,6 +25,8 @@ type ImportKeyRequest struct {
 	AccessKeyId string `json:"accessKeyId"`
 	SecretAccessKey string `json:"secretAccessKey"`
 }
+
+type _ImportKeyRequest ImportKeyRequest
 
 // NewImportKeyRequest instantiates a new ImportKeyRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -116,17 +123,58 @@ func (o *ImportKeyRequest) SetSecretAccessKey(v string) {
 }
 
 func (o ImportKeyRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["name"] = o.Name.Get()
-	}
-	if true {
-		toSerialize["accessKeyId"] = o.AccessKeyId
-	}
-	if true {
-		toSerialize["secretAccessKey"] = o.SecretAccessKey
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ImportKeyRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name.Get()
+	toSerialize["accessKeyId"] = o.AccessKeyId
+	toSerialize["secretAccessKey"] = o.SecretAccessKey
+	return toSerialize, nil
+}
+
+func (o *ImportKeyRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"accessKeyId",
+		"secretAccessKey",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varImportKeyRequest := _ImportKeyRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varImportKeyRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ImportKeyRequest(varImportKeyRequest)
+
+	return err
 }
 
 type NullableImportKeyRequest struct {

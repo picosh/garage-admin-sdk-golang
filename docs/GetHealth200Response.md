@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **KnownNodes** | **int64** |  | 
 **ConnectedNodes** | **int64** |  | 
 **StorageNodes** | **int64** |  | 
-**StorageNodesOk** | **int64** |  | 
+**storageNodesAlright** | **int64** |  | 
 **Partitions** | **int64** |  | 
 **PartitionsQuorum** | **int64** |  | 
 **PartitionsAllOk** | **int64** |  | 
@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 
 ### NewGetHealth200Response
 
-`func NewGetHealth200Response(status string, knownNodes int64, connectedNodes int64, storageNodes int64, storageNodesOk int64, partitions int64, partitionsQuorum int64, partitionsAllOk int64, ) *GetHealth200Response`
+`func NewGetHealth200Response(status string, knownNodes int64, connectedNodes int64, storageNodes int64, storageNodesAlright int64, partitions int64, partitionsQuorum int64, partitionsAllOk int64, ) *GetHealth200Response`
 
 NewGetHealth200Response instantiates a new GetHealth200Response object
 This constructor will assign default values to properties that have it defined,
@@ -112,24 +112,24 @@ and a boolean to check if the value has been set.
 SetStorageNodes sets StorageNodes field to given value.
 
 
-### GetStorageNodesOk
+### GetstorageNodesAlright
 
-`func (o *GetHealth200Response) GetStorageNodesOk() int64`
+`func (o *GetHealth200Response) GetstorageNodesAlright() int64`
 
-GetStorageNodesOk returns the StorageNodesOk field if non-nil, zero value otherwise.
+GetstorageNodesAlright returns the storageNodesAlright field if non-nil, zero value otherwise.
 
-### GetStorageNodesOkOk
+### GetstorageNodesAlrightOk
 
-`func (o *GetHealth200Response) GetStorageNodesOkOk() (*int64, bool)`
+`func (o *GetHealth200Response) GetstorageNodesAlrightOk() (*int64, bool)`
 
-GetStorageNodesOkOk returns a tuple with the StorageNodesOk field if it's non-nil, zero value otherwise
+GetstorageNodesAlrightOk returns a tuple with the storageNodesAlright field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetStorageNodesOk
+### SetstorageNodesAlright
 
-`func (o *GetHealth200Response) SetStorageNodesOk(v int64)`
+`func (o *GetHealth200Response) SetstorageNodesAlright(v int64)`
 
-SetStorageNodesOk sets StorageNodesOk field to given value.
+SetstorageNodesAlright sets storageNodesAlright field to given value.
 
 
 ### GetPartitions

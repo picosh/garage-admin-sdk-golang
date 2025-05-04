@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the UpdateKeyRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UpdateKeyRequest{}
+
 // UpdateKeyRequest struct for UpdateKeyRequest
 type UpdateKeyRequest struct {
 	Name *string `json:"name,omitempty"`
@@ -40,7 +43,7 @@ func NewUpdateKeyRequestWithDefaults() *UpdateKeyRequest {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *UpdateKeyRequest) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *UpdateKeyRequest) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UpdateKeyRequest) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -58,7 +61,7 @@ func (o *UpdateKeyRequest) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *UpdateKeyRequest) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -72,7 +75,7 @@ func (o *UpdateKeyRequest) SetName(v string) {
 
 // GetAllow returns the Allow field value if set, zero value otherwise.
 func (o *UpdateKeyRequest) GetAllow() UpdateKeyRequestAllow {
-	if o == nil || o.Allow == nil {
+	if o == nil || IsNil(o.Allow) {
 		var ret UpdateKeyRequestAllow
 		return ret
 	}
@@ -82,7 +85,7 @@ func (o *UpdateKeyRequest) GetAllow() UpdateKeyRequestAllow {
 // GetAllowOk returns a tuple with the Allow field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UpdateKeyRequest) GetAllowOk() (*UpdateKeyRequestAllow, bool) {
-	if o == nil || o.Allow == nil {
+	if o == nil || IsNil(o.Allow) {
 		return nil, false
 	}
 	return o.Allow, true
@@ -90,7 +93,7 @@ func (o *UpdateKeyRequest) GetAllowOk() (*UpdateKeyRequestAllow, bool) {
 
 // HasAllow returns a boolean if a field has been set.
 func (o *UpdateKeyRequest) HasAllow() bool {
-	if o != nil && o.Allow != nil {
+	if o != nil && !IsNil(o.Allow) {
 		return true
 	}
 
@@ -104,7 +107,7 @@ func (o *UpdateKeyRequest) SetAllow(v UpdateKeyRequestAllow) {
 
 // GetDeny returns the Deny field value if set, zero value otherwise.
 func (o *UpdateKeyRequest) GetDeny() UpdateKeyRequestDeny {
-	if o == nil || o.Deny == nil {
+	if o == nil || IsNil(o.Deny) {
 		var ret UpdateKeyRequestDeny
 		return ret
 	}
@@ -114,7 +117,7 @@ func (o *UpdateKeyRequest) GetDeny() UpdateKeyRequestDeny {
 // GetDenyOk returns a tuple with the Deny field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UpdateKeyRequest) GetDenyOk() (*UpdateKeyRequestDeny, bool) {
-	if o == nil || o.Deny == nil {
+	if o == nil || IsNil(o.Deny) {
 		return nil, false
 	}
 	return o.Deny, true
@@ -122,7 +125,7 @@ func (o *UpdateKeyRequest) GetDenyOk() (*UpdateKeyRequestDeny, bool) {
 
 // HasDeny returns a boolean if a field has been set.
 func (o *UpdateKeyRequest) HasDeny() bool {
-	if o != nil && o.Deny != nil {
+	if o != nil && !IsNil(o.Deny) {
 		return true
 	}
 
@@ -135,17 +138,25 @@ func (o *UpdateKeyRequest) SetDeny(v UpdateKeyRequestDeny) {
 }
 
 func (o UpdateKeyRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.Allow != nil {
-		toSerialize["allow"] = o.Allow
-	}
-	if o.Deny != nil {
-		toSerialize["deny"] = o.Deny
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o UpdateKeyRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Allow) {
+		toSerialize["allow"] = o.Allow
+	}
+	if !IsNil(o.Deny) {
+		toSerialize["deny"] = o.Deny
+	}
+	return toSerialize, nil
 }
 
 type NullableUpdateKeyRequest struct {

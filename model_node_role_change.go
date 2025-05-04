@@ -13,6 +13,7 @@ package garage
 import (
 	"encoding/json"
 	"fmt"
+	"gopkg.in/validator.v2"
 )
 
 // NodeRoleChange - struct for NodeRoleChange
@@ -47,7 +48,11 @@ func (dst *NodeRoleChange) UnmarshalJSON(data []byte) error {
 		if string(jsonNodeRoleRemove) == "{}" { // empty struct
 			dst.NodeRoleRemove = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.NodeRoleRemove); err != nil {
+				dst.NodeRoleRemove = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.NodeRoleRemove = nil
@@ -60,7 +65,11 @@ func (dst *NodeRoleChange) UnmarshalJSON(data []byte) error {
 		if string(jsonNodeRoleUpdate) == "{}" { // empty struct
 			dst.NodeRoleUpdate = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.NodeRoleUpdate); err != nil {
+				dst.NodeRoleUpdate = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.NodeRoleUpdate = nil
@@ -71,11 +80,11 @@ func (dst *NodeRoleChange) UnmarshalJSON(data []byte) error {
 		dst.NodeRoleRemove = nil
 		dst.NodeRoleUpdate = nil
 
-		return fmt.Errorf("Data matches more than one schema in oneOf(NodeRoleChange)")
+		return fmt.Errorf("data matches more than one schema in oneOf(NodeRoleChange)")
 	} else if match == 1 {
 		return nil // exactly one match
 	} else { // no match
-		return fmt.Errorf("Data failed to match schemas in oneOf(NodeRoleChange)")
+		return fmt.Errorf("data failed to match schemas in oneOf(NodeRoleChange)")
 	}
 }
 
@@ -103,6 +112,20 @@ func (obj *NodeRoleChange) GetActualInstance() (interface{}) {
 
 	if obj.NodeRoleUpdate != nil {
 		return obj.NodeRoleUpdate
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj NodeRoleChange) GetActualInstanceValue() (interface{}) {
+	if obj.NodeRoleRemove != nil {
+		return *obj.NodeRoleRemove
+	}
+
+	if obj.NodeRoleUpdate != nil {
+		return *obj.NodeRoleUpdate
 	}
 
 	// all schemas are nil

@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the UpdateBucketRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UpdateBucketRequest{}
+
 // UpdateBucketRequest struct for UpdateBucketRequest
 type UpdateBucketRequest struct {
 	WebsiteAccess *UpdateBucketRequestWebsiteAccess `json:"websiteAccess,omitempty"`
@@ -39,7 +42,7 @@ func NewUpdateBucketRequestWithDefaults() *UpdateBucketRequest {
 
 // GetWebsiteAccess returns the WebsiteAccess field value if set, zero value otherwise.
 func (o *UpdateBucketRequest) GetWebsiteAccess() UpdateBucketRequestWebsiteAccess {
-	if o == nil || o.WebsiteAccess == nil {
+	if o == nil || IsNil(o.WebsiteAccess) {
 		var ret UpdateBucketRequestWebsiteAccess
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *UpdateBucketRequest) GetWebsiteAccess() UpdateBucketRequestWebsiteAcces
 // GetWebsiteAccessOk returns a tuple with the WebsiteAccess field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UpdateBucketRequest) GetWebsiteAccessOk() (*UpdateBucketRequestWebsiteAccess, bool) {
-	if o == nil || o.WebsiteAccess == nil {
+	if o == nil || IsNil(o.WebsiteAccess) {
 		return nil, false
 	}
 	return o.WebsiteAccess, true
@@ -57,7 +60,7 @@ func (o *UpdateBucketRequest) GetWebsiteAccessOk() (*UpdateBucketRequestWebsiteA
 
 // HasWebsiteAccess returns a boolean if a field has been set.
 func (o *UpdateBucketRequest) HasWebsiteAccess() bool {
-	if o != nil && o.WebsiteAccess != nil {
+	if o != nil && !IsNil(o.WebsiteAccess) {
 		return true
 	}
 
@@ -71,7 +74,7 @@ func (o *UpdateBucketRequest) SetWebsiteAccess(v UpdateBucketRequestWebsiteAcces
 
 // GetQuotas returns the Quotas field value if set, zero value otherwise.
 func (o *UpdateBucketRequest) GetQuotas() UpdateBucketRequestQuotas {
-	if o == nil || o.Quotas == nil {
+	if o == nil || IsNil(o.Quotas) {
 		var ret UpdateBucketRequestQuotas
 		return ret
 	}
@@ -81,7 +84,7 @@ func (o *UpdateBucketRequest) GetQuotas() UpdateBucketRequestQuotas {
 // GetQuotasOk returns a tuple with the Quotas field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UpdateBucketRequest) GetQuotasOk() (*UpdateBucketRequestQuotas, bool) {
-	if o == nil || o.Quotas == nil {
+	if o == nil || IsNil(o.Quotas) {
 		return nil, false
 	}
 	return o.Quotas, true
@@ -89,7 +92,7 @@ func (o *UpdateBucketRequest) GetQuotasOk() (*UpdateBucketRequestQuotas, bool) {
 
 // HasQuotas returns a boolean if a field has been set.
 func (o *UpdateBucketRequest) HasQuotas() bool {
-	if o != nil && o.Quotas != nil {
+	if o != nil && !IsNil(o.Quotas) {
 		return true
 	}
 
@@ -102,14 +105,22 @@ func (o *UpdateBucketRequest) SetQuotas(v UpdateBucketRequestQuotas) {
 }
 
 func (o UpdateBucketRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.WebsiteAccess != nil {
-		toSerialize["websiteAccess"] = o.WebsiteAccess
-	}
-	if o.Quotas != nil {
-		toSerialize["quotas"] = o.Quotas
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o UpdateBucketRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.WebsiteAccess) {
+		toSerialize["websiteAccess"] = o.WebsiteAccess
+	}
+	if !IsNil(o.Quotas) {
+		toSerialize["quotas"] = o.Quotas
+	}
+	return toSerialize, nil
 }
 
 type NullableUpdateBucketRequest struct {

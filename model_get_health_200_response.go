@@ -12,7 +12,12 @@ package garage
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the GetHealth200Response type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GetHealth200Response{}
 
 // GetHealth200Response struct for GetHealth200Response
 type GetHealth200Response struct {
@@ -20,23 +25,25 @@ type GetHealth200Response struct {
 	KnownNodes int64 `json:"knownNodes"`
 	ConnectedNodes int64 `json:"connectedNodes"`
 	StorageNodes int64 `json:"storageNodes"`
-	StorageNodesOk int64 `json:"storageNodesOk"`
+	storageNodesAlright int64 `json:"storageNodesOk"`
 	Partitions int64 `json:"partitions"`
 	PartitionsQuorum int64 `json:"partitionsQuorum"`
 	PartitionsAllOk int64 `json:"partitionsAllOk"`
 }
 
+type _GetHealth200Response GetHealth200Response
+
 // NewGetHealth200Response instantiates a new GetHealth200Response object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetHealth200Response(status string, knownNodes int64, connectedNodes int64, storageNodes int64, storageNodesOk int64, partitions int64, partitionsQuorum int64, partitionsAllOk int64) *GetHealth200Response {
+func NewGetHealth200Response(status string, knownNodes int64, connectedNodes int64, storageNodes int64, storageNodesAlright int64, partitions int64, partitionsQuorum int64, partitionsAllOk int64) *GetHealth200Response {
 	this := GetHealth200Response{}
 	this.Status = status
 	this.KnownNodes = knownNodes
 	this.ConnectedNodes = connectedNodes
 	this.StorageNodes = storageNodes
-	this.StorageNodesOk = storageNodesOk
+	this.storageNodesAlright = storageNodesAlright
 	this.Partitions = partitions
 	this.PartitionsQuorum = partitionsQuorum
 	this.PartitionsAllOk = partitionsAllOk
@@ -147,28 +154,28 @@ func (o *GetHealth200Response) SetStorageNodes(v int64) {
 	o.StorageNodes = v
 }
 
-// GetStorageNodesOk returns the StorageNodesOk field value
-func (o *GetHealth200Response) GetStorageNodesOk() int64 {
+// GetstorageNodesAlright returns the storageNodesAlright field value
+func (o *GetHealth200Response) GetstorageNodesAlright() int64 {
 	if o == nil {
 		var ret int64
 		return ret
 	}
 
-	return o.StorageNodesOk
+	return o.storageNodesAlright
 }
 
-// GetStorageNodesOkOk returns a tuple with the StorageNodesOk field value
+// GetstorageNodesAlrightOk returns a tuple with the storageNodesAlright field value
 // and a boolean to check if the value has been set.
-func (o *GetHealth200Response) GetStorageNodesOkOk() (*int64, bool) {
+func (o *GetHealth200Response) GetstorageNodesAlrightOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.StorageNodesOk, true
+	return &o.storageNodesAlright, true
 }
 
-// SetStorageNodesOk sets field value
-func (o *GetHealth200Response) SetStorageNodesOk(v int64) {
-	o.StorageNodesOk = v
+// SetstorageNodesAlright sets field value
+func (o *GetHealth200Response) SetstorageNodesAlright(v int64) {
+	o.storageNodesAlright = v
 }
 
 // GetPartitions returns the Partitions field value
@@ -244,32 +251,68 @@ func (o *GetHealth200Response) SetPartitionsAllOk(v int64) {
 }
 
 func (o GetHealth200Response) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["status"] = o.Status
-	}
-	if true {
-		toSerialize["knownNodes"] = o.KnownNodes
-	}
-	if true {
-		toSerialize["connectedNodes"] = o.ConnectedNodes
-	}
-	if true {
-		toSerialize["storageNodes"] = o.StorageNodes
-	}
-	if true {
-		toSerialize["storageNodesOk"] = o.StorageNodesOk
-	}
-	if true {
-		toSerialize["partitions"] = o.Partitions
-	}
-	if true {
-		toSerialize["partitionsQuorum"] = o.PartitionsQuorum
-	}
-	if true {
-		toSerialize["partitionsAllOk"] = o.PartitionsAllOk
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o GetHealth200Response) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["status"] = o.Status
+	toSerialize["knownNodes"] = o.KnownNodes
+	toSerialize["connectedNodes"] = o.ConnectedNodes
+	toSerialize["storageNodes"] = o.StorageNodes
+	toSerialize["storageNodesOk"] = o.storageNodesAlright
+	toSerialize["partitions"] = o.Partitions
+	toSerialize["partitionsQuorum"] = o.PartitionsQuorum
+	toSerialize["partitionsAllOk"] = o.PartitionsAllOk
+	return toSerialize, nil
+}
+
+func (o *GetHealth200Response) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"status",
+		"knownNodes",
+		"connectedNodes",
+		"storageNodes",
+		"storageNodesOk",
+		"partitions",
+		"partitionsQuorum",
+		"partitionsAllOk",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varGetHealth200Response := _GetHealth200Response{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varGetHealth200Response)
+
+	if err != nil {
+		return err
+	}
+
+	*o = GetHealth200Response(varGetHealth200Response)
+
+	return err
 }
 
 type NullableGetHealth200Response struct {

@@ -12,13 +12,20 @@ package garage
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the ApplyLayout200Response type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ApplyLayout200Response{}
 
 // ApplyLayout200Response struct for ApplyLayout200Response
 type ApplyLayout200Response struct {
 	Message []string `json:"message"`
 	Layout ClusterLayout `json:"layout"`
 }
+
+type _ApplyLayout200Response ApplyLayout200Response
 
 // NewApplyLayout200Response instantiates a new ApplyLayout200Response object
 // This constructor will assign default values to properties that have it defined,
@@ -88,14 +95,56 @@ func (o *ApplyLayout200Response) SetLayout(v ClusterLayout) {
 }
 
 func (o ApplyLayout200Response) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["message"] = o.Message
-	}
-	if true {
-		toSerialize["layout"] = o.Layout
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ApplyLayout200Response) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["message"] = o.Message
+	toSerialize["layout"] = o.Layout
+	return toSerialize, nil
+}
+
+func (o *ApplyLayout200Response) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"message",
+		"layout",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varApplyLayout200Response := _ApplyLayout200Response{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varApplyLayout200Response)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ApplyLayout200Response(varApplyLayout200Response)
+
+	return err
 }
 
 type NullableApplyLayout200Response struct {

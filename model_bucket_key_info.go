@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the BucketKeyInfo type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BucketKeyInfo{}
+
 // BucketKeyInfo struct for BucketKeyInfo
 type BucketKeyInfo struct {
 	AccessKeyId *string `json:"accessKeyId,omitempty"`
@@ -41,7 +44,7 @@ func NewBucketKeyInfoWithDefaults() *BucketKeyInfo {
 
 // GetAccessKeyId returns the AccessKeyId field value if set, zero value otherwise.
 func (o *BucketKeyInfo) GetAccessKeyId() string {
-	if o == nil || o.AccessKeyId == nil {
+	if o == nil || IsNil(o.AccessKeyId) {
 		var ret string
 		return ret
 	}
@@ -51,7 +54,7 @@ func (o *BucketKeyInfo) GetAccessKeyId() string {
 // GetAccessKeyIdOk returns a tuple with the AccessKeyId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BucketKeyInfo) GetAccessKeyIdOk() (*string, bool) {
-	if o == nil || o.AccessKeyId == nil {
+	if o == nil || IsNil(o.AccessKeyId) {
 		return nil, false
 	}
 	return o.AccessKeyId, true
@@ -59,7 +62,7 @@ func (o *BucketKeyInfo) GetAccessKeyIdOk() (*string, bool) {
 
 // HasAccessKeyId returns a boolean if a field has been set.
 func (o *BucketKeyInfo) HasAccessKeyId() bool {
-	if o != nil && o.AccessKeyId != nil {
+	if o != nil && !IsNil(o.AccessKeyId) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *BucketKeyInfo) SetAccessKeyId(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *BucketKeyInfo) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -83,7 +86,7 @@ func (o *BucketKeyInfo) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BucketKeyInfo) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -91,7 +94,7 @@ func (o *BucketKeyInfo) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *BucketKeyInfo) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -105,7 +108,7 @@ func (o *BucketKeyInfo) SetName(v string) {
 
 // GetPermissions returns the Permissions field value if set, zero value otherwise.
 func (o *BucketKeyInfo) GetPermissions() CreateBucketRequestLocalAliasAllow {
-	if o == nil || o.Permissions == nil {
+	if o == nil || IsNil(o.Permissions) {
 		var ret CreateBucketRequestLocalAliasAllow
 		return ret
 	}
@@ -115,7 +118,7 @@ func (o *BucketKeyInfo) GetPermissions() CreateBucketRequestLocalAliasAllow {
 // GetPermissionsOk returns a tuple with the Permissions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BucketKeyInfo) GetPermissionsOk() (*CreateBucketRequestLocalAliasAllow, bool) {
-	if o == nil || o.Permissions == nil {
+	if o == nil || IsNil(o.Permissions) {
 		return nil, false
 	}
 	return o.Permissions, true
@@ -123,7 +126,7 @@ func (o *BucketKeyInfo) GetPermissionsOk() (*CreateBucketRequestLocalAliasAllow,
 
 // HasPermissions returns a boolean if a field has been set.
 func (o *BucketKeyInfo) HasPermissions() bool {
-	if o != nil && o.Permissions != nil {
+	if o != nil && !IsNil(o.Permissions) {
 		return true
 	}
 
@@ -137,7 +140,7 @@ func (o *BucketKeyInfo) SetPermissions(v CreateBucketRequestLocalAliasAllow) {
 
 // GetBucketLocalAliases returns the BucketLocalAliases field value if set, zero value otherwise.
 func (o *BucketKeyInfo) GetBucketLocalAliases() []string {
-	if o == nil || o.BucketLocalAliases == nil {
+	if o == nil || IsNil(o.BucketLocalAliases) {
 		var ret []string
 		return ret
 	}
@@ -147,7 +150,7 @@ func (o *BucketKeyInfo) GetBucketLocalAliases() []string {
 // GetBucketLocalAliasesOk returns a tuple with the BucketLocalAliases field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BucketKeyInfo) GetBucketLocalAliasesOk() ([]string, bool) {
-	if o == nil || o.BucketLocalAliases == nil {
+	if o == nil || IsNil(o.BucketLocalAliases) {
 		return nil, false
 	}
 	return o.BucketLocalAliases, true
@@ -155,7 +158,7 @@ func (o *BucketKeyInfo) GetBucketLocalAliasesOk() ([]string, bool) {
 
 // HasBucketLocalAliases returns a boolean if a field has been set.
 func (o *BucketKeyInfo) HasBucketLocalAliases() bool {
-	if o != nil && o.BucketLocalAliases != nil {
+	if o != nil && !IsNil(o.BucketLocalAliases) {
 		return true
 	}
 
@@ -168,20 +171,28 @@ func (o *BucketKeyInfo) SetBucketLocalAliases(v []string) {
 }
 
 func (o BucketKeyInfo) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.AccessKeyId != nil {
-		toSerialize["accessKeyId"] = o.AccessKeyId
-	}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.Permissions != nil {
-		toSerialize["permissions"] = o.Permissions
-	}
-	if o.BucketLocalAliases != nil {
-		toSerialize["bucketLocalAliases"] = o.BucketLocalAliases
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o BucketKeyInfo) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AccessKeyId) {
+		toSerialize["accessKeyId"] = o.AccessKeyId
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Permissions) {
+		toSerialize["permissions"] = o.Permissions
+	}
+	if !IsNil(o.BucketLocalAliases) {
+		toSerialize["bucketLocalAliases"] = o.BucketLocalAliases
+	}
+	return toSerialize, nil
 }
 
 type NullableBucketKeyInfo struct {

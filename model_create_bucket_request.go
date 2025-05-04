@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the CreateBucketRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreateBucketRequest{}
+
 // CreateBucketRequest struct for CreateBucketRequest
 type CreateBucketRequest struct {
 	GlobalAlias *string `json:"globalAlias,omitempty"`
@@ -39,7 +42,7 @@ func NewCreateBucketRequestWithDefaults() *CreateBucketRequest {
 
 // GetGlobalAlias returns the GlobalAlias field value if set, zero value otherwise.
 func (o *CreateBucketRequest) GetGlobalAlias() string {
-	if o == nil || o.GlobalAlias == nil {
+	if o == nil || IsNil(o.GlobalAlias) {
 		var ret string
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *CreateBucketRequest) GetGlobalAlias() string {
 // GetGlobalAliasOk returns a tuple with the GlobalAlias field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateBucketRequest) GetGlobalAliasOk() (*string, bool) {
-	if o == nil || o.GlobalAlias == nil {
+	if o == nil || IsNil(o.GlobalAlias) {
 		return nil, false
 	}
 	return o.GlobalAlias, true
@@ -57,7 +60,7 @@ func (o *CreateBucketRequest) GetGlobalAliasOk() (*string, bool) {
 
 // HasGlobalAlias returns a boolean if a field has been set.
 func (o *CreateBucketRequest) HasGlobalAlias() bool {
-	if o != nil && o.GlobalAlias != nil {
+	if o != nil && !IsNil(o.GlobalAlias) {
 		return true
 	}
 
@@ -71,7 +74,7 @@ func (o *CreateBucketRequest) SetGlobalAlias(v string) {
 
 // GetLocalAlias returns the LocalAlias field value if set, zero value otherwise.
 func (o *CreateBucketRequest) GetLocalAlias() CreateBucketRequestLocalAlias {
-	if o == nil || o.LocalAlias == nil {
+	if o == nil || IsNil(o.LocalAlias) {
 		var ret CreateBucketRequestLocalAlias
 		return ret
 	}
@@ -81,7 +84,7 @@ func (o *CreateBucketRequest) GetLocalAlias() CreateBucketRequestLocalAlias {
 // GetLocalAliasOk returns a tuple with the LocalAlias field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateBucketRequest) GetLocalAliasOk() (*CreateBucketRequestLocalAlias, bool) {
-	if o == nil || o.LocalAlias == nil {
+	if o == nil || IsNil(o.LocalAlias) {
 		return nil, false
 	}
 	return o.LocalAlias, true
@@ -89,7 +92,7 @@ func (o *CreateBucketRequest) GetLocalAliasOk() (*CreateBucketRequestLocalAlias,
 
 // HasLocalAlias returns a boolean if a field has been set.
 func (o *CreateBucketRequest) HasLocalAlias() bool {
-	if o != nil && o.LocalAlias != nil {
+	if o != nil && !IsNil(o.LocalAlias) {
 		return true
 	}
 
@@ -102,14 +105,22 @@ func (o *CreateBucketRequest) SetLocalAlias(v CreateBucketRequestLocalAlias) {
 }
 
 func (o CreateBucketRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.GlobalAlias != nil {
-		toSerialize["globalAlias"] = o.GlobalAlias
-	}
-	if o.LocalAlias != nil {
-		toSerialize["localAlias"] = o.LocalAlias
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CreateBucketRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.GlobalAlias) {
+		toSerialize["globalAlias"] = o.GlobalAlias
+	}
+	if !IsNil(o.LocalAlias) {
+		toSerialize["localAlias"] = o.LocalAlias
+	}
+	return toSerialize, nil
 }
 
 type NullableCreateBucketRequest struct {

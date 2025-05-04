@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the UpdateBucketRequestWebsiteAccess type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UpdateBucketRequestWebsiteAccess{}
+
 // UpdateBucketRequestWebsiteAccess struct for UpdateBucketRequestWebsiteAccess
 type UpdateBucketRequestWebsiteAccess struct {
 	Enabled *bool `json:"enabled,omitempty"`
@@ -40,7 +43,7 @@ func NewUpdateBucketRequestWebsiteAccessWithDefaults() *UpdateBucketRequestWebsi
 
 // GetEnabled returns the Enabled field value if set, zero value otherwise.
 func (o *UpdateBucketRequestWebsiteAccess) GetEnabled() bool {
-	if o == nil || o.Enabled == nil {
+	if o == nil || IsNil(o.Enabled) {
 		var ret bool
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *UpdateBucketRequestWebsiteAccess) GetEnabled() bool {
 // GetEnabledOk returns a tuple with the Enabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UpdateBucketRequestWebsiteAccess) GetEnabledOk() (*bool, bool) {
-	if o == nil || o.Enabled == nil {
+	if o == nil || IsNil(o.Enabled) {
 		return nil, false
 	}
 	return o.Enabled, true
@@ -58,7 +61,7 @@ func (o *UpdateBucketRequestWebsiteAccess) GetEnabledOk() (*bool, bool) {
 
 // HasEnabled returns a boolean if a field has been set.
 func (o *UpdateBucketRequestWebsiteAccess) HasEnabled() bool {
-	if o != nil && o.Enabled != nil {
+	if o != nil && !IsNil(o.Enabled) {
 		return true
 	}
 
@@ -72,7 +75,7 @@ func (o *UpdateBucketRequestWebsiteAccess) SetEnabled(v bool) {
 
 // GetIndexDocument returns the IndexDocument field value if set, zero value otherwise.
 func (o *UpdateBucketRequestWebsiteAccess) GetIndexDocument() string {
-	if o == nil || o.IndexDocument == nil {
+	if o == nil || IsNil(o.IndexDocument) {
 		var ret string
 		return ret
 	}
@@ -82,7 +85,7 @@ func (o *UpdateBucketRequestWebsiteAccess) GetIndexDocument() string {
 // GetIndexDocumentOk returns a tuple with the IndexDocument field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UpdateBucketRequestWebsiteAccess) GetIndexDocumentOk() (*string, bool) {
-	if o == nil || o.IndexDocument == nil {
+	if o == nil || IsNil(o.IndexDocument) {
 		return nil, false
 	}
 	return o.IndexDocument, true
@@ -90,7 +93,7 @@ func (o *UpdateBucketRequestWebsiteAccess) GetIndexDocumentOk() (*string, bool) 
 
 // HasIndexDocument returns a boolean if a field has been set.
 func (o *UpdateBucketRequestWebsiteAccess) HasIndexDocument() bool {
-	if o != nil && o.IndexDocument != nil {
+	if o != nil && !IsNil(o.IndexDocument) {
 		return true
 	}
 
@@ -104,7 +107,7 @@ func (o *UpdateBucketRequestWebsiteAccess) SetIndexDocument(v string) {
 
 // GetErrorDocument returns the ErrorDocument field value if set, zero value otherwise.
 func (o *UpdateBucketRequestWebsiteAccess) GetErrorDocument() string {
-	if o == nil || o.ErrorDocument == nil {
+	if o == nil || IsNil(o.ErrorDocument) {
 		var ret string
 		return ret
 	}
@@ -114,7 +117,7 @@ func (o *UpdateBucketRequestWebsiteAccess) GetErrorDocument() string {
 // GetErrorDocumentOk returns a tuple with the ErrorDocument field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UpdateBucketRequestWebsiteAccess) GetErrorDocumentOk() (*string, bool) {
-	if o == nil || o.ErrorDocument == nil {
+	if o == nil || IsNil(o.ErrorDocument) {
 		return nil, false
 	}
 	return o.ErrorDocument, true
@@ -122,7 +125,7 @@ func (o *UpdateBucketRequestWebsiteAccess) GetErrorDocumentOk() (*string, bool) 
 
 // HasErrorDocument returns a boolean if a field has been set.
 func (o *UpdateBucketRequestWebsiteAccess) HasErrorDocument() bool {
-	if o != nil && o.ErrorDocument != nil {
+	if o != nil && !IsNil(o.ErrorDocument) {
 		return true
 	}
 
@@ -135,17 +138,25 @@ func (o *UpdateBucketRequestWebsiteAccess) SetErrorDocument(v string) {
 }
 
 func (o UpdateBucketRequestWebsiteAccess) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Enabled != nil {
-		toSerialize["enabled"] = o.Enabled
-	}
-	if o.IndexDocument != nil {
-		toSerialize["indexDocument"] = o.IndexDocument
-	}
-	if o.ErrorDocument != nil {
-		toSerialize["errorDocument"] = o.ErrorDocument
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o UpdateBucketRequestWebsiteAccess) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Enabled) {
+		toSerialize["enabled"] = o.Enabled
+	}
+	if !IsNil(o.IndexDocument) {
+		toSerialize["indexDocument"] = o.IndexDocument
+	}
+	if !IsNil(o.ErrorDocument) {
+		toSerialize["errorDocument"] = o.ErrorDocument
+	}
+	return toSerialize, nil
 }
 
 type NullableUpdateBucketRequestWebsiteAccess struct {

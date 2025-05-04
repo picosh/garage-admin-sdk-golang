@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the AddKeyRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AddKeyRequest{}
+
 // AddKeyRequest struct for AddKeyRequest
 type AddKeyRequest struct {
 	Name NullableString `json:"name,omitempty"`
@@ -38,7 +41,7 @@ func NewAddKeyRequestWithDefaults() *AddKeyRequest {
 
 // GetName returns the Name field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *AddKeyRequest) GetName() string {
-	if o == nil || o.Name.Get() == nil {
+	if o == nil || IsNil(o.Name.Get()) {
 		var ret string
 		return ret
 	}
@@ -79,11 +82,19 @@ func (o *AddKeyRequest) UnsetName() {
 }
 
 func (o AddKeyRequest) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AddKeyRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Name.IsSet() {
 		toSerialize["name"] = o.Name.Get()
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableAddKeyRequest struct {

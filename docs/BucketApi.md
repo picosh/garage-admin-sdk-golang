@@ -1,20 +1,20 @@
-# \BucketApi
+# \BucketAPI
 
 All URIs are relative to *http://localhost:3903/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AllowBucketKey**](BucketApi.md#AllowBucketKey) | **Post** /bucket/allow | Allow key
-[**CreateBucket**](BucketApi.md#CreateBucket) | **Post** /bucket | Create a bucket
-[**DeleteBucket**](BucketApi.md#DeleteBucket) | **Delete** /bucket | Delete a bucket
-[**DeleteBucketGlobalAlias**](BucketApi.md#DeleteBucketGlobalAlias) | **Delete** /bucket/alias/global | Delete a global alias
-[**DeleteBucketLocalAlias**](BucketApi.md#DeleteBucketLocalAlias) | **Delete** /bucket/alias/local | Delete a local alias
-[**DenyBucketKey**](BucketApi.md#DenyBucketKey) | **Post** /bucket/deny | Deny key
-[**GetBucketInfo**](BucketApi.md#GetBucketInfo) | **Get** /bucket | Get a bucket
-[**ListBuckets**](BucketApi.md#ListBuckets) | **Get** /bucket?list | List all buckets
-[**PutBucketGlobalAlias**](BucketApi.md#PutBucketGlobalAlias) | **Put** /bucket/alias/global | Add a global alias
-[**PutBucketLocalAlias**](BucketApi.md#PutBucketLocalAlias) | **Put** /bucket/alias/local | Add a local alias
-[**UpdateBucket**](BucketApi.md#UpdateBucket) | **Put** /bucket | Update a bucket
+[**AllowBucketKey**](BucketAPI.md#AllowBucketKey) | **Post** /bucket/allow | Allow key
+[**CreateBucket**](BucketAPI.md#CreateBucket) | **Post** /bucket | Create a bucket
+[**DeleteBucket**](BucketAPI.md#DeleteBucket) | **Delete** /bucket | Delete a bucket
+[**DeleteBucketGlobalAlias**](BucketAPI.md#DeleteBucketGlobalAlias) | **Delete** /bucket/alias/global | Delete a global alias
+[**DeleteBucketLocalAlias**](BucketAPI.md#DeleteBucketLocalAlias) | **Delete** /bucket/alias/local | Delete a local alias
+[**DenyBucketKey**](BucketAPI.md#DenyBucketKey) | **Post** /bucket/deny | Deny key
+[**GetBucketInfo**](BucketAPI.md#GetBucketInfo) | **Get** /bucket | Get a bucket
+[**ListBuckets**](BucketAPI.md#ListBuckets) | **Get** /bucket?list | List all buckets
+[**PutBucketGlobalAlias**](BucketAPI.md#PutBucketGlobalAlias) | **Put** /bucket/alias/global | Add a global alias
+[**PutBucketLocalAlias**](BucketAPI.md#PutBucketLocalAlias) | **Put** /bucket/alias/local | Add a local alias
+[**UpdateBucket**](BucketAPI.md#UpdateBucket) | **Put** /bucket | Update a bucket
 
 
 
@@ -32,24 +32,24 @@ Allow key
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "git.deuxfleurs.fr/garage-sdk/garage-admin-sdk-golang"
 )
 
 func main() {
-    allowBucketKeyRequest := *openapiclient.NewAllowBucketKeyRequest("e6a14cd6a27f48684579ec6b381c078ab11697e6bc8513b72b2f5307e25fff9b", "GK31c2f218a2e44f485b94239e", *openapiclient.NewAllowBucketKeyRequestPermissions(true, true, true)) // AllowBucketKeyRequest | Aliases to put on the new bucket 
+	allowBucketKeyRequest := *openapiclient.NewAllowBucketKeyRequest("e6a14cd6a27f48684579ec6b381c078ab11697e6bc8513b72b2f5307e25fff9b", "GK31c2f218a2e44f485b94239e", *openapiclient.NewAllowBucketKeyRequestPermissions(true, true, true)) // AllowBucketKeyRequest | Aliases to put on the new bucket 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BucketApi.AllowBucketKey(context.Background()).AllowBucketKeyRequest(allowBucketKeyRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BucketApi.AllowBucketKey``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AllowBucketKey`: BucketInfo
-    fmt.Fprintf(os.Stdout, "Response from `BucketApi.AllowBucketKey`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BucketAPI.AllowBucketKey(context.Background()).AllowBucketKeyRequest(allowBucketKeyRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BucketAPI.AllowBucketKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AllowBucketKey`: BucketInfo
+	fmt.Fprintf(os.Stdout, "Response from `BucketAPI.AllowBucketKey`: %v\n", resp)
 }
 ```
 
@@ -98,24 +98,24 @@ Create a bucket
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "git.deuxfleurs.fr/garage-sdk/garage-admin-sdk-golang"
 )
 
 func main() {
-    createBucketRequest := *openapiclient.NewCreateBucketRequest() // CreateBucketRequest | Aliases to put on the new bucket 
+	createBucketRequest := *openapiclient.NewCreateBucketRequest() // CreateBucketRequest | Aliases to put on the new bucket 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BucketApi.CreateBucket(context.Background()).CreateBucketRequest(createBucketRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BucketApi.CreateBucket``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateBucket`: BucketInfo
-    fmt.Fprintf(os.Stdout, "Response from `BucketApi.CreateBucket`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BucketAPI.CreateBucket(context.Background()).CreateBucketRequest(createBucketRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BucketAPI.CreateBucket``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateBucket`: BucketInfo
+	fmt.Fprintf(os.Stdout, "Response from `BucketAPI.CreateBucket`: %v\n", resp)
 }
 ```
 
@@ -164,22 +164,22 @@ Delete a bucket
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "git.deuxfleurs.fr/garage-sdk/garage-admin-sdk-golang"
 )
 
 func main() {
-    id := "b4018dc61b27ccb5c64ec1b24f53454bbbd180697c758c4d47a22a8921864a87" // string | The exact bucket identifier, a 32 bytes hexadecimal string
+	id := "b4018dc61b27ccb5c64ec1b24f53454bbbd180697c758c4d47a22a8921864a87" // string | The exact bucket identifier, a 32 bytes hexadecimal string
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BucketApi.DeleteBucket(context.Background()).Id(id).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BucketApi.DeleteBucket``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.BucketAPI.DeleteBucket(context.Background()).Id(id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BucketAPI.DeleteBucket``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -228,25 +228,25 @@ Delete a global alias
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "git.deuxfleurs.fr/garage-sdk/garage-admin-sdk-golang"
 )
 
 func main() {
-    id := "e6a14cd6a27f48684579ec6b381c078ab11697e6bc8513b72b2f5307e25fff9b" // string | 
-    alias := "my_documents" // string | 
+	id := "e6a14cd6a27f48684579ec6b381c078ab11697e6bc8513b72b2f5307e25fff9b" // string | 
+	alias := "my_documents" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BucketApi.DeleteBucketGlobalAlias(context.Background()).Id(id).Alias(alias).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BucketApi.DeleteBucketGlobalAlias``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `DeleteBucketGlobalAlias`: BucketInfo
-    fmt.Fprintf(os.Stdout, "Response from `BucketApi.DeleteBucketGlobalAlias`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BucketAPI.DeleteBucketGlobalAlias(context.Background()).Id(id).Alias(alias).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BucketAPI.DeleteBucketGlobalAlias``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DeleteBucketGlobalAlias`: BucketInfo
+	fmt.Fprintf(os.Stdout, "Response from `BucketAPI.DeleteBucketGlobalAlias`: %v\n", resp)
 }
 ```
 
@@ -296,26 +296,26 @@ Delete a local alias
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "git.deuxfleurs.fr/garage-sdk/garage-admin-sdk-golang"
 )
 
 func main() {
-    id := "e6a14cd6a27f48684579ec6b381c078ab11697e6bc8513b72b2f5307e25fff9b" // string | 
-    accessKeyId := "GK31c2f218a2e44f485b94239e" // string | 
-    alias := "my_documents" // string | 
+	id := "e6a14cd6a27f48684579ec6b381c078ab11697e6bc8513b72b2f5307e25fff9b" // string | 
+	accessKeyId := "GK31c2f218a2e44f485b94239e" // string | 
+	alias := "my_documents" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BucketApi.DeleteBucketLocalAlias(context.Background()).Id(id).AccessKeyId(accessKeyId).Alias(alias).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BucketApi.DeleteBucketLocalAlias``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `DeleteBucketLocalAlias`: BucketInfo
-    fmt.Fprintf(os.Stdout, "Response from `BucketApi.DeleteBucketLocalAlias`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BucketAPI.DeleteBucketLocalAlias(context.Background()).Id(id).AccessKeyId(accessKeyId).Alias(alias).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BucketAPI.DeleteBucketLocalAlias``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DeleteBucketLocalAlias`: BucketInfo
+	fmt.Fprintf(os.Stdout, "Response from `BucketAPI.DeleteBucketLocalAlias`: %v\n", resp)
 }
 ```
 
@@ -366,24 +366,24 @@ Deny key
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "git.deuxfleurs.fr/garage-sdk/garage-admin-sdk-golang"
 )
 
 func main() {
-    allowBucketKeyRequest := *openapiclient.NewAllowBucketKeyRequest("e6a14cd6a27f48684579ec6b381c078ab11697e6bc8513b72b2f5307e25fff9b", "GK31c2f218a2e44f485b94239e", *openapiclient.NewAllowBucketKeyRequestPermissions(true, true, true)) // AllowBucketKeyRequest | Aliases to put on the new bucket 
+	allowBucketKeyRequest := *openapiclient.NewAllowBucketKeyRequest("e6a14cd6a27f48684579ec6b381c078ab11697e6bc8513b72b2f5307e25fff9b", "GK31c2f218a2e44f485b94239e", *openapiclient.NewAllowBucketKeyRequestPermissions(true, true, true)) // AllowBucketKeyRequest | Aliases to put on the new bucket 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BucketApi.DenyBucketKey(context.Background()).AllowBucketKeyRequest(allowBucketKeyRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BucketApi.DenyBucketKey``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `DenyBucketKey`: BucketInfo
-    fmt.Fprintf(os.Stdout, "Response from `BucketApi.DenyBucketKey`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BucketAPI.DenyBucketKey(context.Background()).AllowBucketKeyRequest(allowBucketKeyRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BucketAPI.DenyBucketKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DenyBucketKey`: BucketInfo
+	fmt.Fprintf(os.Stdout, "Response from `BucketAPI.DenyBucketKey`: %v\n", resp)
 }
 ```
 
@@ -432,25 +432,25 @@ Get a bucket
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "git.deuxfleurs.fr/garage-sdk/garage-admin-sdk-golang"
 )
 
 func main() {
-    id := "b4018dc61b27ccb5c64ec1b24f53454bbbd180697c758c4d47a22a8921864a87" // string | The exact bucket identifier, a 32 bytes hexadecimal string.  Incompatible with `alias`.  (optional)
-    globalAlias := "my_documents" // string | The exact global alias of one of the existing buckets.  Incompatible with `id`.  (optional)
+	id := "b4018dc61b27ccb5c64ec1b24f53454bbbd180697c758c4d47a22a8921864a87" // string | The exact bucket identifier, a 32 bytes hexadecimal string.  Incompatible with `alias`.  (optional)
+	globalAlias := "my_documents" // string | The exact global alias of one of the existing buckets.  Incompatible with `id`.  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BucketApi.GetBucketInfo(context.Background()).Id(id).GlobalAlias(globalAlias).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BucketApi.GetBucketInfo``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetBucketInfo`: BucketInfo
-    fmt.Fprintf(os.Stdout, "Response from `BucketApi.GetBucketInfo`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BucketAPI.GetBucketInfo(context.Background()).Id(id).GlobalAlias(globalAlias).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BucketAPI.GetBucketInfo``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetBucketInfo`: BucketInfo
+	fmt.Fprintf(os.Stdout, "Response from `BucketAPI.GetBucketInfo`: %v\n", resp)
 }
 ```
 
@@ -500,23 +500,23 @@ List all buckets
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "git.deuxfleurs.fr/garage-sdk/garage-admin-sdk-golang"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BucketApi.ListBuckets(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BucketApi.ListBuckets``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListBuckets`: []ListBuckets200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `BucketApi.ListBuckets`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BucketAPI.ListBuckets(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BucketAPI.ListBuckets``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListBuckets`: []ListBuckets200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `BucketAPI.ListBuckets`: %v\n", resp)
 }
 ```
 
@@ -561,25 +561,25 @@ Add a global alias
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "git.deuxfleurs.fr/garage-sdk/garage-admin-sdk-golang"
 )
 
 func main() {
-    id := "e6a14cd6a27f48684579ec6b381c078ab11697e6bc8513b72b2f5307e25fff9b" // string | 
-    alias := "my_documents" // string | 
+	id := "e6a14cd6a27f48684579ec6b381c078ab11697e6bc8513b72b2f5307e25fff9b" // string | 
+	alias := "my_documents" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BucketApi.PutBucketGlobalAlias(context.Background()).Id(id).Alias(alias).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BucketApi.PutBucketGlobalAlias``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PutBucketGlobalAlias`: BucketInfo
-    fmt.Fprintf(os.Stdout, "Response from `BucketApi.PutBucketGlobalAlias`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BucketAPI.PutBucketGlobalAlias(context.Background()).Id(id).Alias(alias).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BucketAPI.PutBucketGlobalAlias``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PutBucketGlobalAlias`: BucketInfo
+	fmt.Fprintf(os.Stdout, "Response from `BucketAPI.PutBucketGlobalAlias`: %v\n", resp)
 }
 ```
 
@@ -629,26 +629,26 @@ Add a local alias
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "git.deuxfleurs.fr/garage-sdk/garage-admin-sdk-golang"
 )
 
 func main() {
-    id := "e6a14cd6a27f48684579ec6b381c078ab11697e6bc8513b72b2f5307e25fff9b" // string | 
-    accessKeyId := "GK31c2f218a2e44f485b94239e" // string | 
-    alias := "my_documents" // string | 
+	id := "e6a14cd6a27f48684579ec6b381c078ab11697e6bc8513b72b2f5307e25fff9b" // string | 
+	accessKeyId := "GK31c2f218a2e44f485b94239e" // string | 
+	alias := "my_documents" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BucketApi.PutBucketLocalAlias(context.Background()).Id(id).AccessKeyId(accessKeyId).Alias(alias).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BucketApi.PutBucketLocalAlias``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PutBucketLocalAlias`: BucketInfo
-    fmt.Fprintf(os.Stdout, "Response from `BucketApi.PutBucketLocalAlias`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BucketAPI.PutBucketLocalAlias(context.Background()).Id(id).AccessKeyId(accessKeyId).Alias(alias).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BucketAPI.PutBucketLocalAlias``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PutBucketLocalAlias`: BucketInfo
+	fmt.Fprintf(os.Stdout, "Response from `BucketAPI.PutBucketLocalAlias`: %v\n", resp)
 }
 ```
 
@@ -699,25 +699,25 @@ Update a bucket
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "git.deuxfleurs.fr/garage-sdk/garage-admin-sdk-golang"
 )
 
 func main() {
-    id := "b4018dc61b27ccb5c64ec1b24f53454bbbd180697c758c4d47a22a8921864a87" // string | The exact bucket identifier, a 32 bytes hexadecimal string
-    updateBucketRequest := *openapiclient.NewUpdateBucketRequest() // UpdateBucketRequest | Requested changes on the bucket. Both root fields are optionals. 
+	id := "b4018dc61b27ccb5c64ec1b24f53454bbbd180697c758c4d47a22a8921864a87" // string | The exact bucket identifier, a 32 bytes hexadecimal string
+	updateBucketRequest := *openapiclient.NewUpdateBucketRequest() // UpdateBucketRequest | Requested changes on the bucket. Both root fields are optionals. 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BucketApi.UpdateBucket(context.Background()).Id(id).UpdateBucketRequest(updateBucketRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BucketApi.UpdateBucket``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateBucket`: BucketInfo
-    fmt.Fprintf(os.Stdout, "Response from `BucketApi.UpdateBucket`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BucketAPI.UpdateBucket(context.Background()).Id(id).UpdateBucketRequest(updateBucketRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BucketAPI.UpdateBucket``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateBucket`: BucketInfo
+	fmt.Fprintf(os.Stdout, "Response from `BucketAPI.UpdateBucket`: %v\n", resp)
 }
 ```
 

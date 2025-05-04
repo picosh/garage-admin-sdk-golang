@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the UpdateBucketRequestQuotas type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UpdateBucketRequestQuotas{}
+
 // UpdateBucketRequestQuotas struct for UpdateBucketRequestQuotas
 type UpdateBucketRequestQuotas struct {
 	MaxSize NullableInt64 `json:"maxSize,omitempty"`
@@ -39,7 +42,7 @@ func NewUpdateBucketRequestQuotasWithDefaults() *UpdateBucketRequestQuotas {
 
 // GetMaxSize returns the MaxSize field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UpdateBucketRequestQuotas) GetMaxSize() int64 {
-	if o == nil || o.MaxSize.Get() == nil {
+	if o == nil || IsNil(o.MaxSize.Get()) {
 		var ret int64
 		return ret
 	}
@@ -81,7 +84,7 @@ func (o *UpdateBucketRequestQuotas) UnsetMaxSize() {
 
 // GetMaxObjects returns the MaxObjects field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UpdateBucketRequestQuotas) GetMaxObjects() int64 {
-	if o == nil || o.MaxObjects.Get() == nil {
+	if o == nil || IsNil(o.MaxObjects.Get()) {
 		var ret int64
 		return ret
 	}
@@ -122,6 +125,14 @@ func (o *UpdateBucketRequestQuotas) UnsetMaxObjects() {
 }
 
 func (o UpdateBucketRequestQuotas) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UpdateBucketRequestQuotas) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if o.MaxSize.IsSet() {
 		toSerialize["maxSize"] = o.MaxSize.Get()
@@ -129,7 +140,7 @@ func (o UpdateBucketRequestQuotas) MarshalJSON() ([]byte, error) {
 	if o.MaxObjects.IsSet() {
 		toSerialize["maxObjects"] = o.MaxObjects.Get()
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableUpdateBucketRequestQuotas struct {

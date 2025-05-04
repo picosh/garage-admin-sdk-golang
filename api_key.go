@@ -13,18 +13,18 @@ package garage
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 )
 
 
-// KeyApiService KeyApi service
-type KeyApiService service
+// KeyAPIService KeyAPI service
+type KeyAPIService service
 
 type ApiAddKeyRequest struct {
 	ctx context.Context
-	ApiService *KeyApiService
+	ApiService *KeyAPIService
 	addKeyRequest *AddKeyRequest
 }
 
@@ -47,7 +47,7 @@ Creates a new API access key.
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiAddKeyRequest
 */
-func (a *KeyApiService) AddKey(ctx context.Context) ApiAddKeyRequest {
+func (a *KeyAPIService) AddKey(ctx context.Context) ApiAddKeyRequest {
 	return ApiAddKeyRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -56,7 +56,7 @@ func (a *KeyApiService) AddKey(ctx context.Context) ApiAddKeyRequest {
 
 // Execute executes the request
 //  @return KeyInfo
-func (a *KeyApiService) AddKeyExecute(r ApiAddKeyRequest) (*KeyInfo, *http.Response, error) {
+func (a *KeyAPIService) AddKeyExecute(r ApiAddKeyRequest) (*KeyInfo, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -64,7 +64,7 @@ func (a *KeyApiService) AddKeyExecute(r ApiAddKeyRequest) (*KeyInfo, *http.Respo
 		localVarReturnValue  *KeyInfo
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KeyApiService.AddKey")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KeyAPIService.AddKey")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -107,9 +107,9 @@ func (a *KeyApiService) AddKeyExecute(r ApiAddKeyRequest) (*KeyInfo, *http.Respo
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -136,7 +136,7 @@ func (a *KeyApiService) AddKeyExecute(r ApiAddKeyRequest) (*KeyInfo, *http.Respo
 
 type ApiDeleteKeyRequest struct {
 	ctx context.Context
-	ApiService *KeyApiService
+	ApiService *KeyAPIService
 	id *string
 }
 
@@ -159,7 +159,7 @@ Delete a key from the cluster. Its access will be removed from all the buckets. 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiDeleteKeyRequest
 */
-func (a *KeyApiService) DeleteKey(ctx context.Context) ApiDeleteKeyRequest {
+func (a *KeyAPIService) DeleteKey(ctx context.Context) ApiDeleteKeyRequest {
 	return ApiDeleteKeyRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -167,14 +167,14 @@ func (a *KeyApiService) DeleteKey(ctx context.Context) ApiDeleteKeyRequest {
 }
 
 // Execute executes the request
-func (a *KeyApiService) DeleteKeyExecute(r ApiDeleteKeyRequest) (*http.Response, error) {
+func (a *KeyAPIService) DeleteKeyExecute(r ApiDeleteKeyRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KeyApiService.DeleteKey")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KeyAPIService.DeleteKey")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -188,7 +188,7 @@ func (a *KeyApiService) DeleteKeyExecute(r ApiDeleteKeyRequest) (*http.Response,
 		return nil, reportError("id is required and must be specified")
 	}
 
-	localVarQueryParams.Add("id", parameterToString(*r.id, ""))
+	parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -216,9 +216,9 @@ func (a *KeyApiService) DeleteKeyExecute(r ApiDeleteKeyRequest) (*http.Response,
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -236,7 +236,7 @@ func (a *KeyApiService) DeleteKeyExecute(r ApiDeleteKeyRequest) (*http.Response,
 
 type ApiGetKeyRequest struct {
 	ctx context.Context
-	ApiService *KeyApiService
+	ApiService *KeyAPIService
 	id *string
 	search *string
 	showSecretKey *string
@@ -276,7 +276,7 @@ For confidentiality reasons, the secret key is not returned by default: you must
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetKeyRequest
 */
-func (a *KeyApiService) GetKey(ctx context.Context) ApiGetKeyRequest {
+func (a *KeyAPIService) GetKey(ctx context.Context) ApiGetKeyRequest {
 	return ApiGetKeyRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -285,7 +285,7 @@ func (a *KeyApiService) GetKey(ctx context.Context) ApiGetKeyRequest {
 
 // Execute executes the request
 //  @return KeyInfo
-func (a *KeyApiService) GetKeyExecute(r ApiGetKeyRequest) (*KeyInfo, *http.Response, error) {
+func (a *KeyAPIService) GetKeyExecute(r ApiGetKeyRequest) (*KeyInfo, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -293,7 +293,7 @@ func (a *KeyApiService) GetKeyExecute(r ApiGetKeyRequest) (*KeyInfo, *http.Respo
 		localVarReturnValue  *KeyInfo
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KeyApiService.GetKey")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KeyAPIService.GetKey")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -305,13 +305,16 @@ func (a *KeyApiService) GetKeyExecute(r ApiGetKeyRequest) (*KeyInfo, *http.Respo
 	localVarFormParams := url.Values{}
 
 	if r.id != nil {
-		localVarQueryParams.Add("id", parameterToString(*r.id, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "")
 	}
 	if r.search != nil {
-		localVarQueryParams.Add("search", parameterToString(*r.search, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "search", r.search, "form", "")
 	}
 	if r.showSecretKey != nil {
-		localVarQueryParams.Add("showSecretKey", parameterToString(*r.showSecretKey, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "showSecretKey", r.showSecretKey, "form", "")
+	} else {
+		var defaultValue string = "false"
+		r.showSecretKey = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -340,9 +343,9 @@ func (a *KeyApiService) GetKeyExecute(r ApiGetKeyRequest) (*KeyInfo, *http.Respo
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -369,7 +372,7 @@ func (a *KeyApiService) GetKeyExecute(r ApiGetKeyRequest) (*KeyInfo, *http.Respo
 
 type ApiImportKeyRequest struct {
 	ctx context.Context
-	ApiService *KeyApiService
+	ApiService *KeyAPIService
 	importKeyRequest *ImportKeyRequest
 }
 
@@ -394,7 +397,7 @@ Imports an existing API key. This feature must only be used for migrations and b
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiImportKeyRequest
 */
-func (a *KeyApiService) ImportKey(ctx context.Context) ApiImportKeyRequest {
+func (a *KeyAPIService) ImportKey(ctx context.Context) ApiImportKeyRequest {
 	return ApiImportKeyRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -403,7 +406,7 @@ func (a *KeyApiService) ImportKey(ctx context.Context) ApiImportKeyRequest {
 
 // Execute executes the request
 //  @return KeyInfo
-func (a *KeyApiService) ImportKeyExecute(r ApiImportKeyRequest) (*KeyInfo, *http.Response, error) {
+func (a *KeyAPIService) ImportKeyExecute(r ApiImportKeyRequest) (*KeyInfo, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -411,7 +414,7 @@ func (a *KeyApiService) ImportKeyExecute(r ApiImportKeyRequest) (*KeyInfo, *http
 		localVarReturnValue  *KeyInfo
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KeyApiService.ImportKey")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KeyAPIService.ImportKey")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -454,9 +457,9 @@ func (a *KeyApiService) ImportKeyExecute(r ApiImportKeyRequest) (*KeyInfo, *http
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -483,7 +486,7 @@ func (a *KeyApiService) ImportKeyExecute(r ApiImportKeyRequest) (*KeyInfo, *http
 
 type ApiListKeysRequest struct {
 	ctx context.Context
-	ApiService *KeyApiService
+	ApiService *KeyAPIService
 }
 
 func (r ApiListKeysRequest) Execute() ([]ListKeys200ResponseInner, *http.Response, error) {
@@ -499,7 +502,7 @@ Returns all API access keys in the cluster.
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListKeysRequest
 */
-func (a *KeyApiService) ListKeys(ctx context.Context) ApiListKeysRequest {
+func (a *KeyAPIService) ListKeys(ctx context.Context) ApiListKeysRequest {
 	return ApiListKeysRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -508,7 +511,7 @@ func (a *KeyApiService) ListKeys(ctx context.Context) ApiListKeysRequest {
 
 // Execute executes the request
 //  @return []ListKeys200ResponseInner
-func (a *KeyApiService) ListKeysExecute(r ApiListKeysRequest) ([]ListKeys200ResponseInner, *http.Response, error) {
+func (a *KeyAPIService) ListKeysExecute(r ApiListKeysRequest) ([]ListKeys200ResponseInner, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -516,7 +519,7 @@ func (a *KeyApiService) ListKeysExecute(r ApiListKeysRequest) ([]ListKeys200Resp
 		localVarReturnValue  []ListKeys200ResponseInner
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KeyApiService.ListKeys")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KeyAPIService.ListKeys")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -554,9 +557,9 @@ func (a *KeyApiService) ListKeysExecute(r ApiListKeysRequest) ([]ListKeys200Resp
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -583,7 +586,7 @@ func (a *KeyApiService) ListKeysExecute(r ApiListKeysRequest) ([]ListKeys200Resp
 
 type ApiUpdateKeyRequest struct {
 	ctx context.Context
-	ApiService *KeyApiService
+	ApiService *KeyAPIService
 	id *string
 	updateKeyRequest *UpdateKeyRequest
 }
@@ -615,7 +618,7 @@ Updates information about the specified API access key.
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiUpdateKeyRequest
 */
-func (a *KeyApiService) UpdateKey(ctx context.Context) ApiUpdateKeyRequest {
+func (a *KeyAPIService) UpdateKey(ctx context.Context) ApiUpdateKeyRequest {
 	return ApiUpdateKeyRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -624,7 +627,7 @@ func (a *KeyApiService) UpdateKey(ctx context.Context) ApiUpdateKeyRequest {
 
 // Execute executes the request
 //  @return KeyInfo
-func (a *KeyApiService) UpdateKeyExecute(r ApiUpdateKeyRequest) (*KeyInfo, *http.Response, error) {
+func (a *KeyAPIService) UpdateKeyExecute(r ApiUpdateKeyRequest) (*KeyInfo, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -632,7 +635,7 @@ func (a *KeyApiService) UpdateKeyExecute(r ApiUpdateKeyRequest) (*KeyInfo, *http
 		localVarReturnValue  *KeyInfo
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KeyApiService.UpdateKey")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KeyAPIService.UpdateKey")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -649,7 +652,7 @@ func (a *KeyApiService) UpdateKeyExecute(r ApiUpdateKeyRequest) (*KeyInfo, *http
 		return localVarReturnValue, nil, reportError("updateKeyRequest is required and must be specified")
 	}
 
-	localVarQueryParams.Add("id", parameterToString(*r.id, ""))
+	parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -679,9 +682,9 @@ func (a *KeyApiService) UpdateKeyExecute(r ApiUpdateKeyRequest) (*KeyInfo, *http
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

@@ -12,7 +12,12 @@ package garage
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the ListBuckets200ResponseInner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ListBuckets200ResponseInner{}
 
 // ListBuckets200ResponseInner struct for ListBuckets200ResponseInner
 type ListBuckets200ResponseInner struct {
@@ -20,6 +25,8 @@ type ListBuckets200ResponseInner struct {
 	GlobalAliases []string `json:"globalAliases,omitempty"`
 	LocalAliases []ListBuckets200ResponseInnerLocalAliasesInner `json:"localAliases,omitempty"`
 }
+
+type _ListBuckets200ResponseInner ListBuckets200ResponseInner
 
 // NewListBuckets200ResponseInner instantiates a new ListBuckets200ResponseInner object
 // This constructor will assign default values to properties that have it defined,
@@ -65,7 +72,7 @@ func (o *ListBuckets200ResponseInner) SetId(v string) {
 
 // GetGlobalAliases returns the GlobalAliases field value if set, zero value otherwise.
 func (o *ListBuckets200ResponseInner) GetGlobalAliases() []string {
-	if o == nil || o.GlobalAliases == nil {
+	if o == nil || IsNil(o.GlobalAliases) {
 		var ret []string
 		return ret
 	}
@@ -75,7 +82,7 @@ func (o *ListBuckets200ResponseInner) GetGlobalAliases() []string {
 // GetGlobalAliasesOk returns a tuple with the GlobalAliases field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ListBuckets200ResponseInner) GetGlobalAliasesOk() ([]string, bool) {
-	if o == nil || o.GlobalAliases == nil {
+	if o == nil || IsNil(o.GlobalAliases) {
 		return nil, false
 	}
 	return o.GlobalAliases, true
@@ -83,7 +90,7 @@ func (o *ListBuckets200ResponseInner) GetGlobalAliasesOk() ([]string, bool) {
 
 // HasGlobalAliases returns a boolean if a field has been set.
 func (o *ListBuckets200ResponseInner) HasGlobalAliases() bool {
-	if o != nil && o.GlobalAliases != nil {
+	if o != nil && !IsNil(o.GlobalAliases) {
 		return true
 	}
 
@@ -97,7 +104,7 @@ func (o *ListBuckets200ResponseInner) SetGlobalAliases(v []string) {
 
 // GetLocalAliases returns the LocalAliases field value if set, zero value otherwise.
 func (o *ListBuckets200ResponseInner) GetLocalAliases() []ListBuckets200ResponseInnerLocalAliasesInner {
-	if o == nil || o.LocalAliases == nil {
+	if o == nil || IsNil(o.LocalAliases) {
 		var ret []ListBuckets200ResponseInnerLocalAliasesInner
 		return ret
 	}
@@ -107,7 +114,7 @@ func (o *ListBuckets200ResponseInner) GetLocalAliases() []ListBuckets200Response
 // GetLocalAliasesOk returns a tuple with the LocalAliases field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ListBuckets200ResponseInner) GetLocalAliasesOk() ([]ListBuckets200ResponseInnerLocalAliasesInner, bool) {
-	if o == nil || o.LocalAliases == nil {
+	if o == nil || IsNil(o.LocalAliases) {
 		return nil, false
 	}
 	return o.LocalAliases, true
@@ -115,7 +122,7 @@ func (o *ListBuckets200ResponseInner) GetLocalAliasesOk() ([]ListBuckets200Respo
 
 // HasLocalAliases returns a boolean if a field has been set.
 func (o *ListBuckets200ResponseInner) HasLocalAliases() bool {
-	if o != nil && o.LocalAliases != nil {
+	if o != nil && !IsNil(o.LocalAliases) {
 		return true
 	}
 
@@ -128,17 +135,60 @@ func (o *ListBuckets200ResponseInner) SetLocalAliases(v []ListBuckets200Response
 }
 
 func (o ListBuckets200ResponseInner) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if o.GlobalAliases != nil {
-		toSerialize["globalAliases"] = o.GlobalAliases
-	}
-	if o.LocalAliases != nil {
-		toSerialize["localAliases"] = o.LocalAliases
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ListBuckets200ResponseInner) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	if !IsNil(o.GlobalAliases) {
+		toSerialize["globalAliases"] = o.GlobalAliases
+	}
+	if !IsNil(o.LocalAliases) {
+		toSerialize["localAliases"] = o.LocalAliases
+	}
+	return toSerialize, nil
+}
+
+func (o *ListBuckets200ResponseInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varListBuckets200ResponseInner := _ListBuckets200ResponseInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varListBuckets200ResponseInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ListBuckets200ResponseInner(varListBuckets200ResponseInner)
+
+	return err
 }
 
 type NullableListBuckets200ResponseInner struct {

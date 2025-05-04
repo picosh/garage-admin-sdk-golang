@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the KeyInfo type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &KeyInfo{}
+
 // KeyInfo struct for KeyInfo
 type KeyInfo struct {
 	Name *string `json:"name,omitempty"`
@@ -42,7 +45,7 @@ func NewKeyInfoWithDefaults() *KeyInfo {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *KeyInfo) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -52,7 +55,7 @@ func (o *KeyInfo) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KeyInfo) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -60,7 +63,7 @@ func (o *KeyInfo) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *KeyInfo) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -74,7 +77,7 @@ func (o *KeyInfo) SetName(v string) {
 
 // GetAccessKeyId returns the AccessKeyId field value if set, zero value otherwise.
 func (o *KeyInfo) GetAccessKeyId() string {
-	if o == nil || o.AccessKeyId == nil {
+	if o == nil || IsNil(o.AccessKeyId) {
 		var ret string
 		return ret
 	}
@@ -84,7 +87,7 @@ func (o *KeyInfo) GetAccessKeyId() string {
 // GetAccessKeyIdOk returns a tuple with the AccessKeyId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KeyInfo) GetAccessKeyIdOk() (*string, bool) {
-	if o == nil || o.AccessKeyId == nil {
+	if o == nil || IsNil(o.AccessKeyId) {
 		return nil, false
 	}
 	return o.AccessKeyId, true
@@ -92,7 +95,7 @@ func (o *KeyInfo) GetAccessKeyIdOk() (*string, bool) {
 
 // HasAccessKeyId returns a boolean if a field has been set.
 func (o *KeyInfo) HasAccessKeyId() bool {
-	if o != nil && o.AccessKeyId != nil {
+	if o != nil && !IsNil(o.AccessKeyId) {
 		return true
 	}
 
@@ -106,7 +109,7 @@ func (o *KeyInfo) SetAccessKeyId(v string) {
 
 // GetSecretAccessKey returns the SecretAccessKey field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *KeyInfo) GetSecretAccessKey() string {
-	if o == nil || o.SecretAccessKey.Get() == nil {
+	if o == nil || IsNil(o.SecretAccessKey.Get()) {
 		var ret string
 		return ret
 	}
@@ -148,7 +151,7 @@ func (o *KeyInfo) UnsetSecretAccessKey() {
 
 // GetPermissions returns the Permissions field value if set, zero value otherwise.
 func (o *KeyInfo) GetPermissions() KeyInfoPermissions {
-	if o == nil || o.Permissions == nil {
+	if o == nil || IsNil(o.Permissions) {
 		var ret KeyInfoPermissions
 		return ret
 	}
@@ -158,7 +161,7 @@ func (o *KeyInfo) GetPermissions() KeyInfoPermissions {
 // GetPermissionsOk returns a tuple with the Permissions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KeyInfo) GetPermissionsOk() (*KeyInfoPermissions, bool) {
-	if o == nil || o.Permissions == nil {
+	if o == nil || IsNil(o.Permissions) {
 		return nil, false
 	}
 	return o.Permissions, true
@@ -166,7 +169,7 @@ func (o *KeyInfo) GetPermissionsOk() (*KeyInfoPermissions, bool) {
 
 // HasPermissions returns a boolean if a field has been set.
 func (o *KeyInfo) HasPermissions() bool {
-	if o != nil && o.Permissions != nil {
+	if o != nil && !IsNil(o.Permissions) {
 		return true
 	}
 
@@ -180,7 +183,7 @@ func (o *KeyInfo) SetPermissions(v KeyInfoPermissions) {
 
 // GetBuckets returns the Buckets field value if set, zero value otherwise.
 func (o *KeyInfo) GetBuckets() []KeyInfoBucketsInner {
-	if o == nil || o.Buckets == nil {
+	if o == nil || IsNil(o.Buckets) {
 		var ret []KeyInfoBucketsInner
 		return ret
 	}
@@ -190,7 +193,7 @@ func (o *KeyInfo) GetBuckets() []KeyInfoBucketsInner {
 // GetBucketsOk returns a tuple with the Buckets field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KeyInfo) GetBucketsOk() ([]KeyInfoBucketsInner, bool) {
-	if o == nil || o.Buckets == nil {
+	if o == nil || IsNil(o.Buckets) {
 		return nil, false
 	}
 	return o.Buckets, true
@@ -198,7 +201,7 @@ func (o *KeyInfo) GetBucketsOk() ([]KeyInfoBucketsInner, bool) {
 
 // HasBuckets returns a boolean if a field has been set.
 func (o *KeyInfo) HasBuckets() bool {
-	if o != nil && o.Buckets != nil {
+	if o != nil && !IsNil(o.Buckets) {
 		return true
 	}
 
@@ -211,23 +214,31 @@ func (o *KeyInfo) SetBuckets(v []KeyInfoBucketsInner) {
 }
 
 func (o KeyInfo) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o KeyInfo) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.AccessKeyId != nil {
+	if !IsNil(o.AccessKeyId) {
 		toSerialize["accessKeyId"] = o.AccessKeyId
 	}
 	if o.SecretAccessKey.IsSet() {
 		toSerialize["secretAccessKey"] = o.SecretAccessKey.Get()
 	}
-	if o.Permissions != nil {
+	if !IsNil(o.Permissions) {
 		toSerialize["permissions"] = o.Permissions
 	}
-	if o.Buckets != nil {
+	if !IsNil(o.Buckets) {
 		toSerialize["buckets"] = o.Buckets
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableKeyInfo struct {

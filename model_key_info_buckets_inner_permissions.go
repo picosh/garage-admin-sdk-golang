@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the KeyInfoBucketsInnerPermissions type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &KeyInfoBucketsInnerPermissions{}
+
 // KeyInfoBucketsInnerPermissions struct for KeyInfoBucketsInnerPermissions
 type KeyInfoBucketsInnerPermissions struct {
 	Read *bool `json:"read,omitempty"`
@@ -40,7 +43,7 @@ func NewKeyInfoBucketsInnerPermissionsWithDefaults() *KeyInfoBucketsInnerPermiss
 
 // GetRead returns the Read field value if set, zero value otherwise.
 func (o *KeyInfoBucketsInnerPermissions) GetRead() bool {
-	if o == nil || o.Read == nil {
+	if o == nil || IsNil(o.Read) {
 		var ret bool
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *KeyInfoBucketsInnerPermissions) GetRead() bool {
 // GetReadOk returns a tuple with the Read field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KeyInfoBucketsInnerPermissions) GetReadOk() (*bool, bool) {
-	if o == nil || o.Read == nil {
+	if o == nil || IsNil(o.Read) {
 		return nil, false
 	}
 	return o.Read, true
@@ -58,7 +61,7 @@ func (o *KeyInfoBucketsInnerPermissions) GetReadOk() (*bool, bool) {
 
 // HasRead returns a boolean if a field has been set.
 func (o *KeyInfoBucketsInnerPermissions) HasRead() bool {
-	if o != nil && o.Read != nil {
+	if o != nil && !IsNil(o.Read) {
 		return true
 	}
 
@@ -72,7 +75,7 @@ func (o *KeyInfoBucketsInnerPermissions) SetRead(v bool) {
 
 // GetWrite returns the Write field value if set, zero value otherwise.
 func (o *KeyInfoBucketsInnerPermissions) GetWrite() bool {
-	if o == nil || o.Write == nil {
+	if o == nil || IsNil(o.Write) {
 		var ret bool
 		return ret
 	}
@@ -82,7 +85,7 @@ func (o *KeyInfoBucketsInnerPermissions) GetWrite() bool {
 // GetWriteOk returns a tuple with the Write field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KeyInfoBucketsInnerPermissions) GetWriteOk() (*bool, bool) {
-	if o == nil || o.Write == nil {
+	if o == nil || IsNil(o.Write) {
 		return nil, false
 	}
 	return o.Write, true
@@ -90,7 +93,7 @@ func (o *KeyInfoBucketsInnerPermissions) GetWriteOk() (*bool, bool) {
 
 // HasWrite returns a boolean if a field has been set.
 func (o *KeyInfoBucketsInnerPermissions) HasWrite() bool {
-	if o != nil && o.Write != nil {
+	if o != nil && !IsNil(o.Write) {
 		return true
 	}
 
@@ -104,7 +107,7 @@ func (o *KeyInfoBucketsInnerPermissions) SetWrite(v bool) {
 
 // GetOwner returns the Owner field value if set, zero value otherwise.
 func (o *KeyInfoBucketsInnerPermissions) GetOwner() bool {
-	if o == nil || o.Owner == nil {
+	if o == nil || IsNil(o.Owner) {
 		var ret bool
 		return ret
 	}
@@ -114,7 +117,7 @@ func (o *KeyInfoBucketsInnerPermissions) GetOwner() bool {
 // GetOwnerOk returns a tuple with the Owner field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KeyInfoBucketsInnerPermissions) GetOwnerOk() (*bool, bool) {
-	if o == nil || o.Owner == nil {
+	if o == nil || IsNil(o.Owner) {
 		return nil, false
 	}
 	return o.Owner, true
@@ -122,7 +125,7 @@ func (o *KeyInfoBucketsInnerPermissions) GetOwnerOk() (*bool, bool) {
 
 // HasOwner returns a boolean if a field has been set.
 func (o *KeyInfoBucketsInnerPermissions) HasOwner() bool {
-	if o != nil && o.Owner != nil {
+	if o != nil && !IsNil(o.Owner) {
 		return true
 	}
 
@@ -135,17 +138,25 @@ func (o *KeyInfoBucketsInnerPermissions) SetOwner(v bool) {
 }
 
 func (o KeyInfoBucketsInnerPermissions) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Read != nil {
-		toSerialize["read"] = o.Read
-	}
-	if o.Write != nil {
-		toSerialize["write"] = o.Write
-	}
-	if o.Owner != nil {
-		toSerialize["owner"] = o.Owner
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o KeyInfoBucketsInnerPermissions) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Read) {
+		toSerialize["read"] = o.Read
+	}
+	if !IsNil(o.Write) {
+		toSerialize["write"] = o.Write
+	}
+	if !IsNil(o.Owner) {
+		toSerialize["owner"] = o.Owner
+	}
+	return toSerialize, nil
 }
 
 type NullableKeyInfoBucketsInnerPermissions struct {

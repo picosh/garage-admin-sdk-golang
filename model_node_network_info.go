@@ -12,7 +12,12 @@ package garage
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the NodeNetworkInfo type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NodeNetworkInfo{}
 
 // NodeNetworkInfo struct for NodeNetworkInfo
 type NodeNetworkInfo struct {
@@ -22,6 +27,8 @@ type NodeNetworkInfo struct {
 	LastSeenSecsAgo NullableInt32 `json:"lastSeenSecsAgo"`
 	Hostname string `json:"hostname"`
 }
+
+type _NodeNetworkInfo NodeNetworkInfo
 
 // NewNodeNetworkInfo instantiates a new NodeNetworkInfo object
 // This constructor will assign default values to properties that have it defined,
@@ -46,7 +53,7 @@ func NewNodeNetworkInfoWithDefaults() *NodeNetworkInfo {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *NodeNetworkInfo) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -56,7 +63,7 @@ func (o *NodeNetworkInfo) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NodeNetworkInfo) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -64,7 +71,7 @@ func (o *NodeNetworkInfo) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *NodeNetworkInfo) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -175,23 +182,63 @@ func (o *NodeNetworkInfo) SetHostname(v string) {
 }
 
 func (o NodeNetworkInfo) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["addr"] = o.Addr
-	}
-	if true {
-		toSerialize["isUp"] = o.IsUp
-	}
-	if true {
-		toSerialize["lastSeenSecsAgo"] = o.LastSeenSecsAgo.Get()
-	}
-	if true {
-		toSerialize["hostname"] = o.Hostname
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o NodeNetworkInfo) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	toSerialize["addr"] = o.Addr
+	toSerialize["isUp"] = o.IsUp
+	toSerialize["lastSeenSecsAgo"] = o.LastSeenSecsAgo.Get()
+	toSerialize["hostname"] = o.Hostname
+	return toSerialize, nil
+}
+
+func (o *NodeNetworkInfo) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"addr",
+		"isUp",
+		"lastSeenSecsAgo",
+		"hostname",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varNodeNetworkInfo := _NodeNetworkInfo{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varNodeNetworkInfo)
+
+	if err != nil {
+		return err
+	}
+
+	*o = NodeNetworkInfo(varNodeNetworkInfo)
+
+	return err
 }
 
 type NullableNodeNetworkInfo struct {

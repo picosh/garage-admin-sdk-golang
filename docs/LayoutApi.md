@@ -1,13 +1,13 @@
-# \LayoutApi
+# \LayoutAPI
 
 All URIs are relative to *http://localhost:3903/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AddLayout**](LayoutApi.md#AddLayout) | **Post** /layout | Send modifications to the cluster layout
-[**ApplyLayout**](LayoutApi.md#ApplyLayout) | **Post** /layout/apply | Apply staged layout
-[**GetLayout**](LayoutApi.md#GetLayout) | **Get** /layout | Details on the current and staged layout
-[**RevertLayout**](LayoutApi.md#RevertLayout) | **Post** /layout/revert | Clear staged layout
+[**AddLayout**](LayoutAPI.md#AddLayout) | **Post** /layout | Send modifications to the cluster layout
+[**ApplyLayout**](LayoutAPI.md#ApplyLayout) | **Post** /layout/apply | Apply staged layout
+[**GetLayout**](LayoutAPI.md#GetLayout) | **Get** /layout | Details on the current and staged layout
+[**RevertLayout**](LayoutAPI.md#RevertLayout) | **Post** /layout/revert | Clear staged layout
 
 
 
@@ -25,24 +25,24 @@ Send modifications to the cluster layout
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "git.deuxfleurs.fr/garage-sdk/garage-admin-sdk-golang"
 )
 
 func main() {
-    nodeRoleChange := []openapiclient.NodeRoleChange{openapiclient.NodeRoleChange{NodeRoleRemove: openapiclient.NewNodeRoleRemove("6a8e08af2aab1083ebab9b22165ea8b5b9d333b60a39ecd504e85cc1f432c36f", true)}} // []NodeRoleChange | To add a new node to the layout or to change the configuration of an existing node, simply set the values you want (`zone`, `capacity`, and `tags`). To remove a node, simply pass the `remove: true` field. This logic is represented in OpenAPI with a \"One Of\" object.  Contrary to the CLI that may update only a subset of the fields capacity, zone and tags, when calling this API all of these values must be specified. 
+	nodeRoleChange := []openapiclient.NodeRoleChange{openapiclient.NodeRoleChange{NodeRoleRemove: openapiclient.NewNodeRoleRemove("6a8e08af2aab1083ebab9b22165ea8b5b9d333b60a39ecd504e85cc1f432c36f", true)}} // []NodeRoleChange | To add a new node to the layout or to change the configuration of an existing node, simply set the values you want (`zone`, `capacity`, and `tags`). To remove a node, simply pass the `remove: true` field. This logic is represented in OpenAPI with a \"One Of\" object.  Contrary to the CLI that may update only a subset of the fields capacity, zone and tags, when calling this API all of these values must be specified. 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.LayoutApi.AddLayout(context.Background()).NodeRoleChange(nodeRoleChange).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `LayoutApi.AddLayout``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AddLayout`: ClusterLayout
-    fmt.Fprintf(os.Stdout, "Response from `LayoutApi.AddLayout`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.LayoutAPI.AddLayout(context.Background()).NodeRoleChange(nodeRoleChange).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `LayoutAPI.AddLayout``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AddLayout`: ClusterLayout
+	fmt.Fprintf(os.Stdout, "Response from `LayoutAPI.AddLayout`: %v\n", resp)
 }
 ```
 
@@ -91,24 +91,24 @@ Apply staged layout
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "git.deuxfleurs.fr/garage-sdk/garage-admin-sdk-golang"
 )
 
 func main() {
-    layoutVersion := *openapiclient.NewLayoutVersion(int32(13)) // LayoutVersion | Similarly to the CLI, the body must include the version of the new layout that will be created, which MUST be 1 + the value of the currently existing layout in the cluster. 
+	layoutVersion := *openapiclient.NewLayoutVersion(int32(13)) // LayoutVersion | Similarly to the CLI, the body must include the version of the new layout that will be created, which MUST be 1 + the value of the currently existing layout in the cluster. 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.LayoutApi.ApplyLayout(context.Background()).LayoutVersion(layoutVersion).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `LayoutApi.ApplyLayout``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ApplyLayout`: ApplyLayout200Response
-    fmt.Fprintf(os.Stdout, "Response from `LayoutApi.ApplyLayout`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.LayoutAPI.ApplyLayout(context.Background()).LayoutVersion(layoutVersion).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `LayoutAPI.ApplyLayout``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ApplyLayout`: ApplyLayout200Response
+	fmt.Fprintf(os.Stdout, "Response from `LayoutAPI.ApplyLayout`: %v\n", resp)
 }
 ```
 
@@ -157,23 +157,23 @@ Details on the current and staged layout
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "git.deuxfleurs.fr/garage-sdk/garage-admin-sdk-golang"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.LayoutApi.GetLayout(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `LayoutApi.GetLayout``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetLayout`: ClusterLayout
-    fmt.Fprintf(os.Stdout, "Response from `LayoutApi.GetLayout`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.LayoutAPI.GetLayout(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `LayoutAPI.GetLayout``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetLayout`: ClusterLayout
+	fmt.Fprintf(os.Stdout, "Response from `LayoutAPI.GetLayout`: %v\n", resp)
 }
 ```
 
@@ -218,22 +218,22 @@ Clear staged layout
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "git.deuxfleurs.fr/garage-sdk/garage-admin-sdk-golang"
 )
 
 func main() {
-    layoutVersion := *openapiclient.NewLayoutVersion(int32(13)) // LayoutVersion | Reverting the staged changes is done by incrementing the version number and clearing the contents of the staged change list. Similarly to the CLI, the body must include the incremented version number, which MUST be 1 + the value of the currently existing layout in the cluster. 
+	layoutVersion := *openapiclient.NewLayoutVersion(int32(13)) // LayoutVersion | Reverting the staged changes is done by incrementing the version number and clearing the contents of the staged change list. Similarly to the CLI, the body must include the incremented version number, which MUST be 1 + the value of the currently existing layout in the cluster. 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.LayoutApi.RevertLayout(context.Background()).LayoutVersion(layoutVersion).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `LayoutApi.RevertLayout``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.LayoutAPI.RevertLayout(context.Background()).LayoutVersion(layoutVersion).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `LayoutAPI.RevertLayout``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 

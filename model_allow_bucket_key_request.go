@@ -12,7 +12,12 @@ package garage
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the AllowBucketKeyRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AllowBucketKeyRequest{}
 
 // AllowBucketKeyRequest struct for AllowBucketKeyRequest
 type AllowBucketKeyRequest struct {
@@ -20,6 +25,8 @@ type AllowBucketKeyRequest struct {
 	AccessKeyId string `json:"accessKeyId"`
 	Permissions AllowBucketKeyRequestPermissions `json:"permissions"`
 }
+
+type _AllowBucketKeyRequest AllowBucketKeyRequest
 
 // NewAllowBucketKeyRequest instantiates a new AllowBucketKeyRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -114,17 +121,58 @@ func (o *AllowBucketKeyRequest) SetPermissions(v AllowBucketKeyRequestPermission
 }
 
 func (o AllowBucketKeyRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["bucketId"] = o.BucketId
-	}
-	if true {
-		toSerialize["accessKeyId"] = o.AccessKeyId
-	}
-	if true {
-		toSerialize["permissions"] = o.Permissions
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AllowBucketKeyRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["bucketId"] = o.BucketId
+	toSerialize["accessKeyId"] = o.AccessKeyId
+	toSerialize["permissions"] = o.Permissions
+	return toSerialize, nil
+}
+
+func (o *AllowBucketKeyRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"bucketId",
+		"accessKeyId",
+		"permissions",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAllowBucketKeyRequest := _AllowBucketKeyRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varAllowBucketKeyRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AllowBucketKeyRequest(varAllowBucketKeyRequest)
+
+	return err
 }
 
 type NullableAllowBucketKeyRequest struct {

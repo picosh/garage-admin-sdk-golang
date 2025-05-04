@@ -12,7 +12,12 @@ package garage
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the NodeClusterInfo type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NodeClusterInfo{}
 
 // NodeClusterInfo struct for NodeClusterInfo
 type NodeClusterInfo struct {
@@ -21,6 +26,8 @@ type NodeClusterInfo struct {
 	// User defined tags, put whatever makes sense for you, these tags are not interpreted by Garage 
 	Tags []string `json:"tags"`
 }
+
+type _NodeClusterInfo NodeClusterInfo
 
 // NewNodeClusterInfo instantiates a new NodeClusterInfo object
 // This constructor will assign default values to properties that have it defined,
@@ -67,7 +74,7 @@ func (o *NodeClusterInfo) SetZone(v string) {
 
 // GetCapacity returns the Capacity field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *NodeClusterInfo) GetCapacity() int64 {
-	if o == nil || o.Capacity.Get() == nil {
+	if o == nil || IsNil(o.Capacity.Get()) {
 		var ret int64
 		return ret
 	}
@@ -132,17 +139,59 @@ func (o *NodeClusterInfo) SetTags(v []string) {
 }
 
 func (o NodeClusterInfo) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["zone"] = o.Zone
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
+	return json.Marshal(toSerialize)
+}
+
+func (o NodeClusterInfo) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["zone"] = o.Zone
 	if o.Capacity.IsSet() {
 		toSerialize["capacity"] = o.Capacity.Get()
 	}
-	if true {
-		toSerialize["tags"] = o.Tags
+	toSerialize["tags"] = o.Tags
+	return toSerialize, nil
+}
+
+func (o *NodeClusterInfo) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"zone",
+		"tags",
 	}
-	return json.Marshal(toSerialize)
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varNodeClusterInfo := _NodeClusterInfo{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varNodeClusterInfo)
+
+	if err != nil {
+		return err
+	}
+
+	*o = NodeClusterInfo(varNodeClusterInfo)
+
+	return err
 }
 
 type NullableNodeClusterInfo struct {

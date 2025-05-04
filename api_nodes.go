@@ -13,18 +13,18 @@ package garage
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 )
 
 
-// NodesApiService NodesApi service
-type NodesApiService service
+// NodesAPIService NodesAPI service
+type NodesAPIService service
 
 type ApiAddNodeRequest struct {
 	ctx context.Context
-	ApiService *NodesApiService
+	ApiService *NodesAPIService
 	requestBody *[]string
 }
 
@@ -46,7 +46,7 @@ Instructs this Garage node to connect to other Garage nodes at specified `<node_
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiAddNodeRequest
 */
-func (a *NodesApiService) AddNode(ctx context.Context) ApiAddNodeRequest {
+func (a *NodesAPIService) AddNode(ctx context.Context) ApiAddNodeRequest {
 	return ApiAddNodeRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -55,7 +55,7 @@ func (a *NodesApiService) AddNode(ctx context.Context) ApiAddNodeRequest {
 
 // Execute executes the request
 //  @return []AddNode200ResponseInner
-func (a *NodesApiService) AddNodeExecute(r ApiAddNodeRequest) ([]AddNode200ResponseInner, *http.Response, error) {
+func (a *NodesAPIService) AddNodeExecute(r ApiAddNodeRequest) ([]AddNode200ResponseInner, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -63,7 +63,7 @@ func (a *NodesApiService) AddNodeExecute(r ApiAddNodeRequest) ([]AddNode200Respo
 		localVarReturnValue  []AddNode200ResponseInner
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NodesApiService.AddNode")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NodesAPIService.AddNode")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -106,9 +106,9 @@ func (a *NodesApiService) AddNodeExecute(r ApiAddNodeRequest) ([]AddNode200Respo
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -135,7 +135,7 @@ func (a *NodesApiService) AddNodeExecute(r ApiAddNodeRequest) ([]AddNode200Respo
 
 type ApiGetHealthRequest struct {
 	ctx context.Context
-	ApiService *NodesApiService
+	ApiService *NodesAPIService
 }
 
 func (r ApiGetHealthRequest) Execute() (*GetHealth200Response, *http.Response, error) {
@@ -151,7 +151,7 @@ Returns the global status of the cluster, the number of connected nodes (over th
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetHealthRequest
 */
-func (a *NodesApiService) GetHealth(ctx context.Context) ApiGetHealthRequest {
+func (a *NodesAPIService) GetHealth(ctx context.Context) ApiGetHealthRequest {
 	return ApiGetHealthRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -160,7 +160,7 @@ func (a *NodesApiService) GetHealth(ctx context.Context) ApiGetHealthRequest {
 
 // Execute executes the request
 //  @return GetHealth200Response
-func (a *NodesApiService) GetHealthExecute(r ApiGetHealthRequest) (*GetHealth200Response, *http.Response, error) {
+func (a *NodesAPIService) GetHealthExecute(r ApiGetHealthRequest) (*GetHealth200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -168,7 +168,7 @@ func (a *NodesApiService) GetHealthExecute(r ApiGetHealthRequest) (*GetHealth200
 		localVarReturnValue  *GetHealth200Response
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NodesApiService.GetHealth")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NodesAPIService.GetHealth")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -206,9 +206,9 @@ func (a *NodesApiService) GetHealthExecute(r ApiGetHealthRequest) (*GetHealth200
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -235,7 +235,7 @@ func (a *NodesApiService) GetHealthExecute(r ApiGetHealthRequest) (*GetHealth200
 
 type ApiGetNodesRequest struct {
 	ctx context.Context
-	ApiService *NodesApiService
+	ApiService *NodesAPIService
 }
 
 func (r ApiGetNodesRequest) Execute() (*GetNodes200Response, *http.Response, error) {
@@ -257,7 +257,7 @@ Returns the cluster's current status, including:
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetNodesRequest
 */
-func (a *NodesApiService) GetNodes(ctx context.Context) ApiGetNodesRequest {
+func (a *NodesAPIService) GetNodes(ctx context.Context) ApiGetNodesRequest {
 	return ApiGetNodesRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -266,7 +266,7 @@ func (a *NodesApiService) GetNodes(ctx context.Context) ApiGetNodesRequest {
 
 // Execute executes the request
 //  @return GetNodes200Response
-func (a *NodesApiService) GetNodesExecute(r ApiGetNodesRequest) (*GetNodes200Response, *http.Response, error) {
+func (a *NodesAPIService) GetNodesExecute(r ApiGetNodesRequest) (*GetNodes200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -274,7 +274,7 @@ func (a *NodesApiService) GetNodesExecute(r ApiGetNodesRequest) (*GetNodes200Res
 		localVarReturnValue  *GetNodes200Response
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NodesApiService.GetNodes")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NodesAPIService.GetNodes")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -312,9 +312,9 @@ func (a *NodesApiService) GetNodesExecute(r ApiGetNodesRequest) (*GetNodes200Res
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
